@@ -42,9 +42,9 @@ export default function Index() {
   ];
 
   const achievements = [
-    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 1' },
-    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 2' },
-    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 3' }
+    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/731/731b9ef6769d21c803b7102ce2ebed68/assotsiatsiya_1x.jpg', alt: 'Членство в ассоциации' },
+    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/07c/07c40fafa17c3f0a7579b8fa2ba3da9c/izm_21g_1x.jpg', alt: 'Сертификат 2021' },
+    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/fb6/fb624d4205bc1328fd740476cc85da83/izm_v_zakonod_2x.jpg', alt: 'Изменения в законодательстве' }
   ];
 
   const testimonials = [
