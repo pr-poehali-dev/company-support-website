@@ -234,53 +234,65 @@ export default function Index() {
         </div>
       </header>
 
-      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-24 animate-fade-in">
+      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-24 animate-fade-in overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h2 className="text-5xl font-heading font-bold mb-6">
-              Комплексное сопровождение вашего бизнеса
-            </h2>
-            <p className="text-xl mb-8 text-white/90">
-              Профессиональные решения по бухгалтерскому учету и юридическим вопросам во Владивостоке. 
-              Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" variant="secondary" className="text-lg">
-                <Icon name="Phone" size={20} className="mr-2" />
-                Получить консультацию
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary">
-                <Icon name="FileText" size={20} className="mr-2" />
-                Наши услуги
-              </Button>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-5xl font-heading font-bold mb-6">
+                Комплексное сопровождение вашего бизнеса
+              </h2>
+              <p className="text-xl mb-8 text-white/90">
+                Профессиональные решения по бухгалтерскому учету и юридическим вопросам во Владивостоке. 
+                Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" variant="secondary" className="text-lg">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Получить консультацию
+                </Button>
+                <Button size="lg" variant="outline" className="text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary">
+                  <Icon name="FileText" size={20} className="mr-2" />
+                  Наши услуги
+                </Button>
+              </div>
+              <div className="mt-12 flex flex-wrap gap-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                    <Icon name="Award" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">15+</div>
+                    <div className="text-sm text-white/80">лет на рынке</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                    <Icon name="Users" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">200+</div>
+                    <div className="text-sm text-white/80">довольных клиентов</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                    <Icon name="CheckCircle" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">100%</div>
+                    <div className="text-sm text-white/80">без штрафов от налоговой</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="mt-12 flex flex-wrap gap-8">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <Icon name="Award" size={24} />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold">15+</div>
-                  <div className="text-sm text-white/80">лет на рынке</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <Icon name="Users" size={24} />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold">200+</div>
-                  <div className="text-sm text-white/80">довольных клиентов</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <Icon name="CheckCircle" size={24} />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold">100%</div>
-                  <div className="text-sm text-white/80">без штрафов от налоговой</div>
-                </div>
+            <div className="hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                <img 
+                  src="https://cdn-ru.bitrix24.ru/b26317548/landing/48e/48effbe688797568a4a685e290e67cdf/photo_75_2x.jpg" 
+                  alt="Офис ГЛАВБУХВЛ"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 via-transparent to-transparent" />
               </div>
             </div>
           </div>
@@ -496,35 +508,31 @@ export default function Index() {
           </div>
           
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-              <div className="order-2 lg:order-1">
-                <div className="grid grid-cols-2 gap-6">
-                  {teamInfo.features.map((feature, index) => (
-                    <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                        <Icon name={feature.icon as any} size={24} className="text-primary" />
-                      </div>
-                      <h3 className="font-heading font-semibold text-lg mb-2 text-secondary">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{feature.text}</p>
-                    </div>
-                  ))}
+            <div className="mb-16">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
+                <img 
+                  src={teamInfo.image} 
+                  alt="Команда ГЛАВБУХВЛ"
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/70 via-secondary/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
+                  <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3">Команда профессионалов</h3>
+                  <p className="text-lg md:text-xl text-white/95">Более 15 лет опыта в сфере бухгалтерии и юриспруденции</p>
                 </div>
               </div>
-              
-              <div className="order-1 lg:order-2">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={teamInfo.image} 
-                    alt="Команда ГЛАВБУХВЛ"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <h3 className="text-2xl font-heading font-bold mb-2">Команда профессионалов</h3>
-                    <p className="text-white/90">Более 15 лет опыта в сфере бухгалтерии и юриспруденции</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {teamInfo.features.map((feature, index) => (
+                <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Icon name={feature.icon as any} size={24} className="text-primary" />
                   </div>
+                  <h3 className="font-heading font-semibold text-lg mb-2 text-secondary">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.text}</p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
