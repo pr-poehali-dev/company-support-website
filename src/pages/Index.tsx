@@ -77,18 +77,48 @@ export default function Index() {
   const achievements = [
     { 
       image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/731/731b9ef6769d21c803b7102ce2ebed68/assotsiatsiya_1x.jpg', 
-      alt: 'Членство в ассоциации',
-      orientation: 'vertical'
+      alt: 'Членство в ассоциации'
     },
     { 
       image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/07c/07c40fafa17c3f0a7579b8fa2ba3da9c/izm_21g_1x.jpg', 
-      alt: 'Сертификат 2021',
-      orientation: 'horizontal'
+      alt: 'Сертификат 2021'
     },
     { 
       image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/fb6/fb624d4205bc1328fd740476cc85da83/izm_v_zakonod_2x.jpg', 
-      alt: 'Изменения в законодательстве',
-      orientation: 'horizontal'
+      alt: 'Изменения в законодательстве'
+    }
+  ];
+
+  const guarantees = [
+    {
+      icon: 'FileText',
+      title: 'Подготовку документации во все контролирующие органы',
+      description: 'Подготавливаем отчетность в ФНС, рассчитываем взносы в ФСС, формируем отчеты для Росстата, составляем бухгалтерский баланс и отчет о финансовых результатах.'
+    },
+    {
+      icon: 'FileCheck',
+      title: 'Подготовку первичной документации',
+      description: 'Сформируем и отправим все необходимые документы: от платежного поручения до счет-фактуры.'
+    },
+    {
+      icon: 'TrendingDown',
+      title: 'Помощь в снижении налоговой нагрузки',
+      description: 'Ищем доступные способы снижения налоговой нагрузки — через получение налоговых льгот, субсидий, преференций, грантов. Тем, кто только регистрирует свой бизнес, подскажем, какую стратегию ведения дел лучше выбрать.'
+    },
+    {
+      icon: 'MessageCircle',
+      title: 'Консультации специалистов',
+      description: 'Мы ответим на любые вопросы, связанные с бухучетом и налогообложением.'
+    },
+    {
+      icon: 'Users',
+      title: 'Кадровый учет',
+      description: 'Берем на себя обязанности кадровой службы: от приема сотрудников на работу до их увольнения, включая ведение всей документации отдела по работе с персоналом.'
+    },
+    {
+      icon: 'DollarSign',
+      title: 'Расчет зарплаты',
+      description: 'Мы не только начислим зарплату, но и рассчитаем обязательные отчисления в госфонды.'
     }
   ];
 
@@ -358,27 +388,56 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
             {achievements.map((achievement, index) => (
               <div 
                 key={index} 
-                className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 ${
-                  achievement.orientation === 'vertical' ? 'md:row-span-2' : ''
-                }`}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white p-6"
+                style={{ width: 'min(100%, 300px)' }}
               >
-                <div className={`${
-                  achievement.orientation === 'vertical' ? 'aspect-[3/4]' : 'aspect-[4/3]'
-                } bg-gradient-to-br from-primary/10 to-emerald-100 flex items-center justify-center`}>
+                <div className="aspect-[3/4] flex items-center justify-center">
                   <img 
                     src={achievement.image} 
                     alt={achievement.alt}
-                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
                   <p className="text-white font-semibold text-center px-4">{achievement.alt}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="guarantees" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-heading font-bold text-secondary mb-6">
+              ПРИ РАБОТЕ С ГЛАВБУХВЛ ВЫ ГАРАНТИРОВАННО ПОЛУЧАЕТЕ:
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Полный спектр услуг для успешного ведения вашего бизнеса. 
+              Мы берем на себя все заботы о бухгалтерии, чтобы вы могли сосредоточиться на развитии.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {guarantees.map((guarantee, index) => (
+              <Card 
+                key={index} 
+                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-none bg-gradient-to-br from-green-50 to-emerald-50"
+              >
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                    <Icon name={guarantee.icon as any} size={32} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-xl font-heading mb-3">{guarantee.title}</CardTitle>
+                  <CardDescription className="text-base leading-relaxed text-foreground/70">
+                    {guarantee.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
             ))}
           </div>
         </div>
