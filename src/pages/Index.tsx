@@ -14,7 +14,7 @@ export default function Index() {
     message: ''
   });
 
-  const services = [
+  const mainServices = [
     {
       icon: 'Calculator',
       title: 'Комплексный бухгалтерский учет',
@@ -41,10 +41,55 @@ export default function Index() {
     }
   ];
 
+  const additionalServices = [
+    {
+      icon: 'CreditCard',
+      title: 'Покупка онлайн-кассы',
+      description: 'Купить и зарегистрировать онлайн-кассу, вы также можете сделать это в нашей компании'
+    },
+    {
+      icon: 'FileSignature',
+      title: 'Изготовление ЭЦП за 1 день',
+      description: 'Электронную подпись для документооборота (ЭДО), участия в торгах, ЕГАИС и другие'
+    },
+    {
+      icon: 'Building2',
+      title: 'Открытие расчётного счёта',
+      description: 'Всем нашим клиентам оказываем бесплатную помощь в открытие расчетного счета в банке'
+    },
+    {
+      icon: 'Rocket',
+      title: 'Регистрация бизнеса под ключ',
+      description: 'Помощь в выборе формы собственности, подбор системы налогообложения, сдача отчетности в ФНС'
+    },
+    {
+      icon: 'FileEdit',
+      title: 'Внесение изменений в ЕГРЮЛ',
+      description: 'Смена юридического адреса, наименования, директора, кодов ОКВЭД и др.'
+    },
+    {
+      icon: 'Trash2',
+      title: 'Ликвидация ООО',
+      description: 'Ликвидируем ваше ООО электронно. Все заботы мы возьмем на себя'
+    }
+  ];
+
   const achievements = [
-    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/731/731b9ef6769d21c803b7102ce2ebed68/assotsiatsiya_1x.jpg', alt: 'Членство в ассоциации' },
-    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/07c/07c40fafa17c3f0a7579b8fa2ba3da9c/izm_21g_1x.jpg', alt: 'Сертификат 2021' },
-    { image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/fb6/fb624d4205bc1328fd740476cc85da83/izm_v_zakonod_2x.jpg', alt: 'Изменения в законодательстве' }
+    { 
+      image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/731/731b9ef6769d21c803b7102ce2ebed68/assotsiatsiya_1x.jpg', 
+      alt: 'Членство в ассоциации',
+      orientation: 'vertical'
+    },
+    { 
+      image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/07c/07c40fafa17c3f0a7579b8fa2ba3da9c/izm_21g_1x.jpg', 
+      alt: 'Сертификат 2021',
+      orientation: 'horizontal'
+    },
+    { 
+      image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/fb6/fb624d4205bc1328fd740476cc85da83/izm_v_zakonod_2x.jpg', 
+      alt: 'Изменения в законодательстве',
+      orientation: 'horizontal'
+    }
   ];
 
   const testimonials = [
@@ -259,8 +304,8 @@ export default function Index() {
               и защиту от штрафов, чтобы вы могли экономить время и деньги.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {mainServices.map((service, index) => (
               <Card 
                 key={index} 
                 className={`hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-none bg-gradient-to-br ${service.gradient} overflow-hidden relative group`}
@@ -276,6 +321,32 @@ export default function Index() {
               </Card>
             ))}
           </div>
+          
+          <div className="mt-16">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-heading font-bold text-secondary mb-4">Виды услуг</h3>
+              <p className="text-lg text-muted-foreground">
+                Мы предоставляем широкий спектр услуг для наших клиентов
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {additionalServices.map((service, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name={service.icon as any} size={24} className="text-primary" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading mb-2">{service.title}</CardTitle>
+                        <CardDescription className="text-sm leading-relaxed">{service.description}</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -287,21 +358,25 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {achievements.map((achievement, index) => (
               <div 
                 key={index} 
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 ${
+                  achievement.orientation === 'vertical' ? 'md:row-span-2' : ''
+                }`}
               >
-                <div className="aspect-[3/4] bg-gradient-to-br from-primary/10 to-emerald-100 flex items-center justify-center">
+                <div className={`${
+                  achievement.orientation === 'vertical' ? 'aspect-[3/4]' : 'aspect-[4/3]'
+                } bg-gradient-to-br from-primary/10 to-emerald-100 flex items-center justify-center`}>
                   <img 
                     src={achievement.image} 
                     alt={achievement.alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                  <p className="text-white font-semibold">{achievement.alt}</p>
+                  <p className="text-white font-semibold text-center px-4">{achievement.alt}</p>
                 </div>
               </div>
             ))}
