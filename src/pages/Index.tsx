@@ -17,28 +17,34 @@ export default function Index() {
   const services = [
     {
       icon: 'Calculator',
-      title: 'Бухгалтерское обслуживание',
-      description: 'Полный цикл бухгалтерского учета для бизнеса любого масштаба',
-      features: ['Ведение учета', 'Сдача отчетности', 'Расчет зарплаты', 'Консультации']
+      title: 'Комплексный бухгалтерский учет',
+      description: 'Полное ведение бухгалтерии с нуля до сдачи отчетности',
+      gradient: 'from-emerald-50 to-green-50'
+    },
+    {
+      icon: 'Users',
+      title: 'Аутсорсинг бухгалтерии',
+      description: 'Передайте бухгалтерию профессионалам и экономьте время',
+      gradient: 'from-green-50 to-teal-50'
     },
     {
       icon: 'Scale',
-      title: 'Юридическое сопровождение',
-      description: 'Комплексная правовая поддержка и защита интересов компании',
-      features: ['Договоры', 'Арбитраж', 'Регистрация', 'Юридический аудит']
+      title: 'Юридические услуги',
+      description: 'Правовая поддержка и защита интересов вашего бизнеса',
+      gradient: 'from-teal-50 to-cyan-50'
     },
     {
-      icon: 'FileText',
-      title: 'Налоговая оптимизация',
-      description: 'Легальные методы снижения налоговой нагрузки',
-      features: ['Налоговое планирование', 'Выбор режима', 'Проверки', 'Споры с ИФНС']
-    },
-    {
-      icon: 'Briefcase',
-      title: 'Кадровое делопроизводство',
-      description: 'Полное ведение кадрового учета и документооборота',
-      features: ['Трудовые договоры', 'Кадровый учет', 'Личные дела', 'Миграционный учет']
+      icon: 'Sparkles',
+      title: 'Внедрение Bitrix24',
+      description: 'Автоматизация бизнес-процессов и CRM',
+      gradient: 'from-cyan-50 to-emerald-50'
     }
+  ];
+
+  const achievements = [
+    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 1' },
+    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 2' },
+    { image: 'https://cdn.poehali.dev/files/image.png', alt: 'Сертификат 3' }
   ];
 
   const testimonials = [
@@ -120,31 +126,33 @@ export default function Index() {
       <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Icon name="Building2" size={32} className="text-primary" />
+            <Icon name="Leaf" size={32} className="text-primary" />
             <div>
-              <h1 className="text-2xl font-heading font-bold text-secondary">БизнесПартнер</h1>
+              <h1 className="text-2xl font-heading font-bold text-secondary">ГЛАВБУХВЛ</h1>
               <p className="text-xs text-muted-foreground">Бухгалтерия & Юриспруденция</p>
             </div>
           </div>
           <nav className="hidden md:flex gap-6">
+            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
+            <a href="#achievements" className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
             <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
             <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
             <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="hidden md:inline-flex">Консультация</Button>
+          <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90">Консультация</Button>
         </div>
       </header>
 
-      <section className="bg-gradient-to-br from-secondary via-secondary/95 to-primary text-white py-24 animate-fade-in">
+      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-24 animate-fade-in">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h2 className="text-5xl font-heading font-bold mb-6">
               Комплексное сопровождение вашего бизнеса
             </h2>
             <p className="text-xl mb-8 text-white/90">
-              Профессиональные решения по бухгалтерскому учету и юридическим вопросам. 
+              Профессиональные решения по бухгалтерскому учету и юридическим вопросам во Владивостоке. 
               Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -190,35 +198,112 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-muted/30">
+      <section id="about" className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши услуги</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Полный спектр бухгалтерских и юридических услуг для вашего бизнеса
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                  <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Icon name={service.icon as any} size={28} className="text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl font-heading">{service.title}</CardTitle>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <Icon name="Check" size={18} className="text-primary flex-shrink-0" />
-                        <span>{feature}</span>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-heading font-bold text-secondary mb-4">О нас</h2>
+              <p className="text-lg text-muted-foreground">
+                Мы предоставляем полный спектр бухгалтерских услуг
+              </p>
+            </div>
+            <Card className="shadow-lg border-none">
+              <CardContent className="p-8">
+                <div className="space-y-6">
+                  <p className="text-lg leading-relaxed text-foreground/90">
+                    <strong className="text-primary">Оказание бухгалтерских услуг предполагает:</strong>
+                  </p>
+                  <ul className="grid md:grid-cols-2 gap-4">
+                    {[
+                      'Полный или частичный аутсорсинг',
+                      'Ведение кадрового, налогового и упр. учета',
+                      'Составление отчетности, в том числе для компаний, временно приостановивших работу',
+                      'Оказание бухгалтерских услуг в период проверок',
+                      'Налоговый консалтинг',
+                      'Проведение аудиторских проверок и многое другое'
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+                        <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-foreground/80">{item}</span>
                       </li>
                     ))}
                   </ul>
-                </CardContent>
+                  <div className="bg-primary/5 p-6 rounded-lg border-l-4 border-primary">
+                    <p className="text-foreground/90 leading-relaxed mb-4">
+                      Наши специалисты организуют восстановление учета, устранят системные ошибки, 
+                      а также обеспечат внутренний контроль движения ценностей.
+                    </p>
+                    <p className="text-foreground/90 leading-relaxed mb-4">
+                      Услуги бухгалтера во Владивостоке предоставляются не только в офисе компании, 
+                      но так же работаем и удаленно.
+                    </p>
+                    <p className="text-primary font-semibold">
+                      Современный подход существенно повышает уровень конфиденциальности.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-slide-up">
+            <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-3">ЧТО МЫ ПРЕДЛАГАЕМ</p>
+            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Ваши цели — наш приоритет</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Сосредоточьтесь на развитии бизнеса, а бухгалтерию доверьте ГЛАВБУХВЛ. 
+              Мы предлагаем комплексные бухгалтерские услуги, своевременную сдачу отчетов 
+              и защиту от штрафов, чтобы вы могли экономить время и деньги.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <Card 
+                key={index} 
+                className={`hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-none bg-gradient-to-br ${service.gradient} overflow-hidden relative group`}
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
+                <CardHeader className="relative">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon name={service.icon as any} size={32} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-xl font-heading">{service.title}</CardTitle>
+                  <CardDescription className="text-base">{service.description}</CardDescription>
+                </CardHeader>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="achievements" className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши достижения</h2>
+            <p className="text-lg text-muted-foreground">
+              Сертификаты и награды, подтверждающие нашу экспертность
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {achievements.map((achievement, index) => (
+              <div 
+                key={index} 
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              >
+                <div className="aspect-[3/4] bg-gradient-to-br from-primary/10 to-emerald-100 flex items-center justify-center">
+                  <img 
+                    src={achievement.image} 
+                    alt={achievement.alt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                  <p className="text-white font-semibold">{achievement.alt}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -234,11 +319,11 @@ export default function Index() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-shadow border-t-4 border-t-primary">
                 <CardHeader>
                   <div className="flex items-center gap-1 mb-2">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" size={18} className="text-yellow-500 fill-yellow-500" />
+                      <Icon key={i} name="Star" size={18} className="text-primary fill-primary" />
                     ))}
                   </div>
                   <CardTitle className="text-xl font-heading">{testimonial.name}</CardTitle>
@@ -265,7 +350,7 @@ export default function Index() {
             {team.map((member, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-emerald-200 flex items-center justify-center overflow-hidden">
                     <Icon name="User" size={64} className="text-primary/60" />
                   </div>
                   <CardTitle className="text-xl font-heading">{member.name}</CardTitle>
@@ -294,8 +379,8 @@ export default function Index() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="space-y-4">
               {faqItems.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-white">
-                  <AccordionTrigger className="text-left font-heading hover:no-underline py-4">
+                <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-white shadow-sm">
+                  <AccordionTrigger className="text-left font-heading hover:no-underline py-4 hover:text-primary">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-foreground/80 pb-4">
@@ -335,14 +420,14 @@ export default function Index() {
                     <Icon name="Mail" size={20} className="text-white mt-1" />
                     <div>
                       <div className="font-medium text-white">Email</div>
-                      <div className="text-white/80">info@bizpartner.ru</div>
+                      <div className="text-white/80">info@glavbuhvl.ru</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="MapPin" size={20} className="text-white mt-1" />
                     <div>
                       <div className="font-medium text-white">Адрес</div>
-                      <div className="text-white/80">Москва, ул. Примерная, д. 10, офис 205</div>
+                      <div className="text-white/80">Владивосток, ул. Примерная, д. 10, офис 205</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -397,7 +482,7 @@ export default function Index() {
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full" size="lg">
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
                       <Icon name="Send" size={18} className="mr-2" />
                       Отправить заявку
                     </Button>
@@ -413,11 +498,11 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <Icon name="Building2" size={24} />
-              <span className="font-heading font-bold">БизнесПартнер</span>
+              <Icon name="Leaf" size={24} />
+              <span className="font-heading font-bold">ГЛАВБУХВЛ</span>
             </div>
             <div className="text-sm text-white/70">
-              © 2024 БизнесПартнер. Все права защищены.
+              © 2024 ГЛАВБУХВЛ. Все права защищены.
             </div>
             <div className="flex gap-4">
               <a href="#" className="hover:text-primary transition-colors">
