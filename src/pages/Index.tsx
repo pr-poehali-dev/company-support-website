@@ -143,29 +143,43 @@ export default function Index() {
     }
   ];
 
-  const team = [
-    {
-      name: 'Анна Иванова',
-      position: 'Главный бухгалтер',
-      experience: '15 лет опыта',
-      description: 'Аттестованный аудитор, эксперт по МСФО',
-      image: '/placeholder.svg'
-    },
-    {
-      name: 'Сергей Морозов',
-      position: 'Ведущий юрист',
-      experience: '12 лет опыта',
-      description: 'Специализация: корпоративное право, арбитраж',
-      image: '/placeholder.svg'
-    },
-    {
-      name: 'Ольга Петрова',
-      position: 'Налоговый консультант',
-      experience: '10 лет опыта',
-      description: 'Бывший специалист ИФНС, эксперт по налогам',
-      image: '/placeholder.svg'
-    }
-  ];
+  const teamInfo = {
+    image: 'https://cdn-ru.bitrix24.ru/b26317548/landing/f73/f73d75883000aca79b7f224dc4a0e588/komanda_2x.jpg',
+    title: 'Наша команда',
+    description: 'Команда ГЛАВБУХВЛ — это опытные профессионалы с многолетним опытом в сфере бухгалтерии и юриспруденции. Мы гордимся нашими специалистами, которые постоянно совершенствуют свои знания и следят за всеми изменениями в законодательстве.',
+    features: [
+      {
+        icon: 'GraduationCap',
+        title: 'Высокая квалификация',
+        text: 'Аттестованные бухгалтеры и юристы с профессиональными сертификатами'
+      },
+      {
+        icon: 'BookOpen',
+        title: 'Постоянное обучение',
+        text: 'Регулярное повышение квалификации и участие в профессиональных семинарах'
+      },
+      {
+        icon: 'Target',
+        title: 'Индивидуальный подход',
+        text: 'Каждый клиент получает персонального менеджера и команду специалистов'
+      },
+      {
+        icon: 'Shield',
+        title: 'Ответственность',
+        text: 'Полная материальная ответственность за качество оказываемых услуг'
+      },
+      {
+        icon: 'Clock',
+        title: 'Оперативность',
+        text: 'Быстрое реагирование на запросы и оперативное решение задач'
+      },
+      {
+        icon: 'Heart',
+        title: 'Любовь к делу',
+        text: 'Мы любим свою работу и дорожим доверием каждого клиента'
+      }
+    ]
+  };
 
   const faqItems = [
     {
@@ -472,32 +486,46 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="team" className="py-20 bg-muted/30">
+      <section id="team" className="py-20 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наша команда</h2>
-            <p className="text-lg text-muted-foreground">
-              Профессионалы с многолетним опытом
+            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">{teamInfo.title}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              {teamInfo.description}
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-emerald-200 flex items-center justify-center overflow-hidden">
-                    <Icon name="User" size={64} className="text-primary/60" />
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+              <div className="order-2 lg:order-1">
+                <div className="grid grid-cols-2 gap-6">
+                  {teamInfo.features.map((feature, index) => (
+                    <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <Icon name={feature.icon as any} size={24} className="text-primary" />
+                      </div>
+                      <h3 className="font-heading font-semibold text-lg mb-2 text-secondary">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{feature.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="order-1 lg:order-2">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={teamInfo.image} 
+                    alt="Команда ГЛАВБУХВЛ"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                    <h3 className="text-2xl font-heading font-bold mb-2">Команда профессионалов</h3>
+                    <p className="text-white/90">Более 15 лет опыта в сфере бухгалтерии и юриспруденции</p>
                   </div>
-                  <CardTitle className="text-xl font-heading">{member.name}</CardTitle>
-                  <CardDescription className="text-base font-medium text-primary">
-                    {member.position}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-2">{member.experience}</p>
-                  <p className="text-foreground/80">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
