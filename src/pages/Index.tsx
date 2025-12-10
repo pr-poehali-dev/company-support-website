@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
+import Quiz from '@/components/Quiz';
 
 export default function Index() {
   const [formData, setFormData] = useState({
@@ -180,6 +181,102 @@ export default function Index() {
       }
     ]
   };
+
+  const leadMagnets = [
+    {
+      icon: 'FileText',
+      title: 'Чек-лист по налогам',
+      description: 'Полный список всех налогов и сроков уплаты для ИП и ООО',
+      gradient: 'from-blue-50 to-indigo-50',
+      downloadUrl: '#'
+    },
+    {
+      icon: 'Calculator',
+      title: 'Калькулятор налогов',
+      description: 'Рассчитайте налоговую нагрузку для разных режимов налогообложения',
+      gradient: 'from-purple-50 to-pink-50',
+      downloadUrl: '#'
+    },
+    {
+      icon: 'BookOpen',
+      title: 'Гайд по отчётности',
+      description: 'Какие отчёты и когда нужно сдавать в 2024 году',
+      gradient: 'from-green-50 to-emerald-50',
+      downloadUrl: '#'
+    },
+    {
+      icon: 'Shield',
+      title: 'Как избежать штрафов',
+      description: 'Топ-10 ошибок, которые приводят к штрафам от налоговой',
+      gradient: 'from-orange-50 to-red-50',
+      downloadUrl: '#'
+    }
+  ];
+
+  const quizzes = [
+    {
+      title: 'Нужен ли вам аутсорсинг?',
+      description: 'Узнайте, стоит ли вам передавать бухгалтерию на аутсорсинг',
+      icon: 'HelpCircle',
+      gradient: 'from-emerald-50 to-teal-50',
+      questions: [
+        {
+          question: 'Сколько сотрудников в вашей компании?',
+          options: ['Только я (ИП)', 'До 10 человек', '10-50 человек', 'Более 50 человек']
+        },
+        {
+          question: 'Какой объем операций в месяц?',
+          options: ['До 20 документов', '20-100 документов', '100-500 документов', 'Более 500 документов']
+        },
+        {
+          question: 'Есть ли у вас штатный бухгалтер?',
+          options: ['Нет', 'Да, но часто болеет/уходит в отпуск', 'Да, но не справляется', 'Да, всё хорошо']
+        }
+      ],
+      onComplete: (answers: number[]) => {
+        const score = answers.reduce((sum, val) => sum + val, 0);
+        if (score <= 3) {
+          return 'Аутсорсинг отлично подойдёт для вас!\n\nВаш бизнес на начальном этапе, и передача бухгалтерии профессионалам позволит вам сэкономить деньги и сосредоточиться на развитии. Стоимость: от 5 000 руб/мес.';
+        } else if (score <= 6) {
+          return 'Аутсорсинг будет выгодным решением!\n\nВы растёте, и профессиональная команда поможет избежать ошибок и штрафов. Это дешевле, чем содержать штатного бухгалтера. Стоимость: от 15 000 руб/мес.';
+        } else {
+          return 'Стоит рассмотреть комбинированный вариант\n\nУ вас большой объём работы. Рекомендуем частичный аутсорсинг: ваш бухгалтер ведёт операции, мы проверяем и сдаём отчётность. Это гарантия от ошибок. Стоимость: от 25 000 руб/мес.';
+        }
+      }
+    },
+    {
+      title: 'Какой режим налогообложения выбрать?',
+      description: 'Пройдите тест и узнайте оптимальную систему налогов',
+      icon: 'Calculator',
+      gradient: 'from-blue-50 to-cyan-50',
+      questions: [
+        {
+          question: 'Какая у вас организационная форма?',
+          options: ['ИП', 'ООО', 'Ещё не зарегистрировал', 'Самозанятый']
+        },
+        {
+          question: 'Какой планируемый годовой доход?',
+          options: ['До 2,4 млн руб', '2,4-60 млн руб', '60-150 млн руб', 'Более 150 млн руб']
+        },
+        {
+          question: 'Сколько планируете сотрудников?',
+          options: ['Работаю один', 'До 5 человек', '5-100 человек', 'Более 100 человек']
+        }
+      ],
+      onComplete: (answers: number[]) => {
+        if (answers[0] === 3) {
+          return 'Режим самозанятости (НПД)\n\nОтличный вариант для старта! 4-6% налог, никакой отчётности, всё через приложение. Подходит, если работаете один и доход до 2,4 млн руб/год.';
+        }
+        if (answers[1] === 0) {
+          return 'УСН Доходы 6%\n\nСамый простой режим! Платите 6% с дохода, минимум отчётности. Идеально для малого бизнеса с небольшими расходами.';
+        }
+        if (answers[1] === 1 && answers[2] <= 1) {
+          return 'УСН Доходы минус расходы 15%\n\nВыгодно, если расходы составляют более 60% от доходов. Можно снизить налоги, но нужно подтверждать все расходы документами.';
+        }
+        return 'ОСНО (общая система)\n\nПодходит для крупного бизнеса. НДС 20%, налог на прибыль 20%. Больше отчётности, но возможность работать с крупными компаниями-плательщиками НДС.';
+      }
+    }
+  ];
 
   const faqItems = [
     {
@@ -538,7 +635,61 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="faq" className="py-20">
+      <section id="resources" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
+              <Icon name="Gift" size={32} className="text-primary" />
+            </div>
+            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Полезная информация</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Бесплатные материалы и тесты, которые помогут вам лучше разобраться в бухгалтерии и налогах
+            </p>
+          </div>
+
+          <div className="mb-20">
+            <h3 className="text-2xl font-heading font-bold text-secondary mb-8 text-center">
+              <Icon name="Download" size={24} className="inline mr-2" />
+              Бесплатные материалы для скачивания
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {leadMagnets.map((magnet, index) => (
+                <Card key={index} className={`bg-gradient-to-br ${magnet.gradient} border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
+                  <CardHeader>
+                    <div className="w-14 h-14 rounded-xl bg-white/90 flex items-center justify-center mb-3 shadow-md">
+                      <Icon name={magnet.icon as any} size={28} className="text-primary" />
+                    </div>
+                    <CardTitle className="text-lg font-heading text-secondary">{magnet.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">{magnet.description}</p>
+                    <Button variant="outline" className="w-full" asChild>
+                      <a href={magnet.downloadUrl} download>
+                        <Icon name="Download" size={18} className="mr-2" />
+                        Скачать
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-heading font-bold text-secondary mb-8 text-center">
+              <Icon name="ClipboardCheck" size={24} className="inline mr-2" />
+              Интерактивные тесты
+            </h3>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {quizzes.map((quiz, index) => (
+                <Quiz key={index} {...quiz} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Частые вопросы</h2>
