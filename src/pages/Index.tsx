@@ -322,11 +322,13 @@ export default function Index() {
           </div>
           <nav className="hidden lg:flex gap-6">
             <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
-            <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
+            <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Виды услуг</a>
             <a href="#achievements" className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
-            <a href="#resources" className="text-sm font-medium hover:text-primary transition-colors">Материалы</a>
+            <a href="#priorities" className="text-sm font-medium hover:text-primary transition-colors">Приоритеты</a>
             <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
             <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
+            <a href="#resources" className="text-sm font-medium hover:text-primary transition-colors">Полезное</a>
+            <a href="#quizzes" className="text-sm font-medium hover:text-primary transition-colors">Тесты</a>
             <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
@@ -339,13 +341,15 @@ export default function Index() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px]">
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav className="flex flex-col gap-3 mt-8 max-h-[calc(100vh-120px)] overflow-y-auto">
                   <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">О нас</a>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Услуги</a>
+                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Виды услуг</a>
                   <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
-                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Материалы</a>
+                  <a href="#priorities" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Приоритеты</a>
                   <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
                   <a href="#team" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
+                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Полезное</a>
+                  <a href="#quizzes" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
                   <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
                   <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
                   <Button className="w-full mt-4 bg-primary hover:bg-primary/90">Консультация</Button>
@@ -660,23 +664,46 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="resources" className="py-20 bg-white">
+      <section id="priorities" className="py-12 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Наши приоритеты</h2>
+            <p className="text-base md:text-lg text-muted-foreground">
+              Что мы гарантируем каждому клиенту
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {guarantees.map((item, index) => (
+              <Card key={index} className="border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <CardHeader>
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <Icon name={item.icon as any} size={24} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-lg font-heading">{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="resources" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
               <Icon name="Gift" size={32} className="text-primary" />
             </div>
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Полезная информация</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Бесплатные материалы и тесты, которые помогут вам лучше разобраться в бухгалтерии и налогах
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Полезная информация</h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Бесплатные материалы для скачивания
             </p>
           </div>
 
-          <div className="mb-20">
-            <h3 className="text-2xl font-heading font-bold text-secondary mb-8 text-center">
-              <Icon name="Download" size={24} className="inline mr-2" />
-              Бесплатные материалы для скачивания
-            </h3>
+          <div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {leadMagnets.map((magnet, index) => (
                 <Card key={index} className={`bg-gradient-to-br ${magnet.gradient} border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
@@ -700,21 +727,29 @@ export default function Index() {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-heading font-bold text-secondary mb-8 text-center">
-              <Icon name="ClipboardCheck" size={24} className="inline mr-2" />
-              Интерактивные тесты
-            </h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {quizzes.map((quiz, index) => (
-                <Quiz key={index} {...quiz} />
-              ))}
+        </div>
+      </section>
+
+      <section id="quizzes" className="py-12 md:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
+              <Icon name="ClipboardCheck" size={32} className="text-primary" />
             </div>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Интерактивные тесты</h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Пройдите тест и получите персональные рекомендации
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+            {quizzes.map((quiz, index) => (
+              <Quiz key={index} {...quiz} />
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="faq" className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <section id="faq" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Частые вопросы</h2>
