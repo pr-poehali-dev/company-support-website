@@ -702,31 +702,27 @@ export default function Index() {
             </p>
           </div>
 
-          <div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              {leadMagnets.map((magnet, index) => (
-                <Card key={index} className={`bg-gradient-to-br ${magnet.gradient} border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
-                  <CardHeader>
-                    <div className="w-14 h-14 rounded-xl bg-white/90 flex items-center justify-center mb-3 shadow-md">
-                      <Icon name={magnet.icon as any} size={28} className="text-primary" />
-                    </div>
-                    <CardTitle className="text-lg font-heading text-secondary">{magnet.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">{magnet.description}</p>
-                    <Button variant="outline" className="w-full" asChild>
-                      <a href={magnet.downloadUrl} download>
-                        <Icon name="Download" size={18} className="mr-2" />
-                        Скачать
-                      </a>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {leadMagnets.map((magnet, index) => (
+              <Card key={index} className={`bg-gradient-to-br ${magnet.gradient} border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
+                <CardHeader>
+                  <div className="w-14 h-14 rounded-xl bg-white/90 flex items-center justify-center mb-3 shadow-md">
+                    <Icon name={magnet.icon as any} size={28} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-lg font-heading text-secondary">{magnet.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">{magnet.description}</p>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href={magnet.downloadUrl} download>
+                      <Icon name="Download" size={18} className="mr-2" />
+                      Скачать
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-
         </div>
       </section>
 
