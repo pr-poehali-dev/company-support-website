@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Icon from '@/components/ui/icon';
 import Quiz from '@/components/Quiz';
 
@@ -14,6 +15,7 @@ export default function Index() {
     phone: '',
     message: ''
   });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const mainServices = [
     {
@@ -310,74 +312,97 @@ export default function Index() {
   return (
     <div className="min-h-screen">
       <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Icon name="Leaf" size={32} className="text-primary" />
+            <Icon name="Leaf" size={28} className="text-primary md:w-8 md:h-8" />
             <div>
-              <h1 className="text-2xl font-heading font-bold text-secondary">ГЛАВБУХВЛ</h1>
-              <p className="text-xs text-muted-foreground">Бухгалтерия & Юриспруденция</p>
+              <h1 className="text-xl md:text-2xl font-heading font-bold text-secondary">ГЛАВБУХВЛ</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">Бухгалтерия & Юриспруденция</p>
             </div>
           </div>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden lg:flex gap-6">
             <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
             <a href="#achievements" className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
+            <a href="#resources" className="text-sm font-medium hover:text-primary transition-colors">Материалы</a>
             <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
             <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
             <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90">Консультация</Button>
+          <div className="flex items-center gap-2">
+            <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90">Консультация</Button>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Icon name="Menu" size={24} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px]">
+                <nav className="flex flex-col gap-4 mt-8">
+                  <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">О нас</a>
+                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Услуги</a>
+                  <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
+                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Материалы</a>
+                  <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
+                  <a href="#team" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
+                  <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
+                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90">Консультация</Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
-      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-24 animate-fade-in overflow-hidden">
+      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-12 md:py-24 animate-fade-in overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <h2 className="text-5xl font-heading font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6">
                 Комплексное сопровождение вашего бизнеса
               </h2>
-              <p className="text-xl mb-8 text-white/90">
+              <p className="text-base md:text-xl mb-6 md:mb-8 text-white/90">
                 Профессиональные решения по бухгалтерскому учету и юридическим вопросам во Владивостоке. 
                 Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" variant="secondary" className="text-lg">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
+                <Button size="lg" variant="secondary" className="text-base md:text-lg w-full sm:w-auto">
                   <Icon name="Phone" size={20} className="mr-2" />
                   Получить консультацию
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary">
+                <Button size="lg" variant="outline" className="text-base md:text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary w-full sm:w-auto">
                   <Icon name="FileText" size={20} className="mr-2" />
                   Наши услуги
                 </Button>
               </div>
-              <div className="mt-12 flex flex-wrap gap-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <Icon name="Award" size={24} />
+              <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                    <Icon name="Award" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">15+</div>
-                    <div className="text-sm text-white/80">лет на рынке</div>
+                    <div className="text-xl md:text-2xl font-bold">15+</div>
+                    <div className="text-xs md:text-sm text-white/80">лет на рынке</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <Icon name="Users" size={24} />
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                    <Icon name="Users" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">200+</div>
-                    <div className="text-sm text-white/80">довольных клиентов</div>
+                    <div className="text-xl md:text-2xl font-bold">200+</div>
+                    <div className="text-xs md:text-sm text-white/80">довольных клиентов</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <Icon name="CheckCircle" size={24} />
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                    <Icon name="CheckCircle" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">100%</div>
-                    <div className="text-sm text-white/80">без штрафов от налоговой</div>
+                    <div className="text-xl md:text-2xl font-bold">100%</div>
+                    <div className="text-xs md:text-sm text-white/80">без штрафов от налоговой</div>
                   </div>
                 </div>
               </div>
@@ -396,12 +421,12 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <section id="about" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-heading font-bold text-secondary mb-4">О нас</h2>
-              <p className="text-lg text-muted-foreground">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">О нас</h2>
+              <p className="text-base md:text-lg text-muted-foreground">
                 Мы предоставляем полный спектр бухгалтерских услуг
               </p>
             </div>
@@ -815,27 +840,55 @@ export default function Index() {
         </div>
       </section>
 
-      <footer className="bg-secondary text-white py-8">
+      <footer className="bg-secondary text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Icon name="Leaf" size={24} />
-              <span className="font-heading font-bold">ГЛАВБУХВЛ</span>
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Icon name="Leaf" size={28} />
+                <span className="font-heading font-bold text-xl">ГЛАВБУХВЛ</span>
+              </div>
+              <p className="text-white/70 text-sm">
+                Профессиональные бухгалтерские и юридические услуги во Владивостоке с 2010 года
+              </p>
             </div>
-            <div className="text-sm text-white/70">
-              © 2024 ГЛАВБУХВЛ. Все права защищены.
+            <div>
+              <h3 className="font-heading font-semibold mb-4">Контакты</h3>
+              <div className="space-y-2 text-sm text-white/80">
+                <div className="flex items-center gap-2">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 (495) 123-45-67</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Mail" size={16} />
+                  <span>info@glavbuhvl.ru</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="MapPin" size={16} />
+                  <span>Владивосток, ул. Примерная, 10</span>
+                </div>
+              </div>
             </div>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-primary transition-colors">
-                <Icon name="Facebook" size={20} />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                <Icon name="Linkedin" size={20} />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                <Icon name="Mail" size={20} />
-              </a>
+            <div>
+              <h3 className="font-heading font-semibold mb-4">Мы в соцсетях</h3>
+              <div className="flex gap-3">
+                <a href="https://t.me/glavbuhvl" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                  <Icon name="Send" size={20} />
+                </a>
+                <a href="https://wa.me/79999999999" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                  <Icon name="MessageCircle" size={20} />
+                </a>
+                <a href="mailto:info@glavbuhvl.ru" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                  <Icon name="Mail" size={20} />
+                </a>
+                <a href="tel:+74951234567" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                  <Icon name="Phone" size={20} />
+                </a>
+              </div>
             </div>
+          </div>
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-white/70">
+            © 2024 ГЛАВБУХВЛ. Все права защищены.
           </div>
         </div>
       </footer>
