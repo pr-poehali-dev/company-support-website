@@ -609,42 +609,42 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="max-w-3xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-3 items-start">
-              <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 items-start">
+              <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
                 <div className="relative">
                   <img 
                     src={achievements[0].image} 
                     alt={achievements[0].alt}
                     className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
-                    style={{ maxHeight: '280px' }}
+                    style={{ maxHeight: '336px' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                     <p className="text-white font-semibold text-xs text-center px-2">{achievements[0].alt}</p>
                   </div>
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+              <div className="space-y-4">
+                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
                   <div className="relative">
                     <img 
                       src={achievements[1].image} 
                       alt={achievements[1].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
-                      style={{ maxHeight: '135px' }}
+                      style={{ maxHeight: '162px' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                       <p className="text-white font-semibold text-xs text-center px-2">{achievements[1].alt}</p>
                     </div>
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
                   <div className="relative">
                     <img 
                       src={achievements[2].image} 
                       alt={achievements[2].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
-                      style={{ maxHeight: '135px' }}
+                      style={{ maxHeight: '162px' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                       <p className="text-white font-semibold text-xs text-center px-2">{achievements[2].alt}</p>
@@ -812,51 +812,51 @@ export default function Index() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => setQuizOpen(true)}>
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="Briefcase" size={24} className="text-primary" />
                 </div>
-                <div>
-                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Подходит ли вам аутсорсинг?</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Узнайте, выгодно ли передать бухгалтерию профессионалам</p>
-                </div>
-              </div>
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                <Icon name="Play" size={18} className="mr-2" />
-                Начать тест
-              </Button>
-            </div>
-            <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => { setActiveQuiz(1); setQuizOpen(true); }}>
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <CardTitle className="text-lg font-heading">Подходит ли вам аутсорсинг?</CardTitle>
+                <CardDescription>Узнайте, выгодно ли передать бухгалтерию профессионалам</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-primary hover:bg-primary/90" onClick={() => setQuizOpen(true)}>
+                  <Icon name="Play" size={18} className="mr-2" />
+                  Начать тест
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="TrendingUp" size={24} className="text-primary" />
                 </div>
-                <div>
-                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Оцените риски бизнеса</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Проверьте, насколько защищен ваш бизнес от штрафов</p>
-                </div>
-              </div>
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                <Icon name="Play" size={18} className="mr-2" />
-                Начать тест
-              </Button>
-            </div>
-            <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => { setActiveQuiz(2); setQuizOpen(true); }}>
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <CardTitle className="text-lg font-heading">Оцените риски бизнеса</CardTitle>
+                <CardDescription>Проверьте, насколько защищен ваш бизнес от штрафов</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-primary hover:bg-primary/90" onClick={() => { setActiveQuiz(1); setQuizOpen(true); }}>
+                  <Icon name="Play" size={18} className="mr-2" />
+                  Начать тест
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Icon name="Target" size={24} className="text-primary" />
                 </div>
-                <div>
-                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Готовы ли вы к проверке?</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Узнайте, насколько готова ваша компания к налоговой проверке</p>
-                </div>
-              </div>
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                <Icon name="Play" size={18} className="mr-2" />
-                Начать тест
-              </Button>
-            </div>
+                <CardTitle className="text-lg font-heading">Готовы ли вы к проверке?</CardTitle>
+                <CardDescription>Узнайте, насколько готова ваша компания к налоговой проверке</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-primary hover:bg-primary/90" onClick={() => { setActiveQuiz(2); setQuizOpen(true); }}>
+                  <Icon name="Play" size={18} className="mr-2" />
+                  Начать тест
+                </Button>
+              </CardContent>
+            </Card>
             {quizzes.map((quiz, index) => (
               <Quiz key={index} {...quiz} />
             ))}
