@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import Quiz from '@/components/Quiz';
 
@@ -16,6 +17,7 @@ export default function Index() {
     message: ''
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [consultationOpen, setConsultationOpen] = useState(false);
 
   useEffect(() => {
     const observerOptions = {
@@ -26,13 +28,15 @@ export default function Index() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
           entry.target.classList.add('animate-fade-in');
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('.scroll-animate').forEach(el => {
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach(el => {
       observer.observe(el);
     });
 
@@ -329,6 +333,8 @@ export default function Index() {
     e.preventDefault();
     console.log('Form submitted:', formData);
     alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+    setConsultationOpen(false);
+    setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
   return (
@@ -355,7 +361,7 @@ export default function Index() {
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
           <div className="flex items-center gap-2">
-            <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Консультация</Button>
+            <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90" onClick={() => setConsultationOpen(true)}>Консультация</Button>
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden">
@@ -374,7 +380,7 @@ export default function Index() {
                   <a href="#quizzes" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
                   <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
                   <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
-                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>Консультация</Button>
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); setConsultationOpen(true); }}>Консультация</Button>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -394,7 +400,7 @@ export default function Index() {
                 Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
-                <Button size="lg" variant="secondary" className="text-base md:text-lg w-full sm:w-auto" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                <Button size="lg" variant="secondary" className="text-base md:text-lg w-full sm:w-auto" onClick={() => setConsultationOpen(true)}>
                   <Icon name="Phone" size={20} className="mr-2" />
                   Получить консультацию
                 </Button>
@@ -945,6 +951,57 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      <Dialog open={consultationOpen} onOpenChange={setConsultationOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-2xl text-secondary">Получить консультацию</DialogTitle>
+            <DialogDescription>
+              Оставьте свои контакты, и мы свяжемся с вами в течение часа
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div>
+              <Input
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <Input
+                type="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <Input
+                type="tel"
+                placeholder="Телефон"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <Textarea
+                placeholder="Ваш вопрос или комментарий"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                rows={4}
+              />
+            </div>
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
+              <Icon name="Send" size={18} className="mr-2" />
+              Отправить заявку
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
