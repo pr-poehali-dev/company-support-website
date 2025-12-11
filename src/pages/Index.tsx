@@ -19,6 +19,7 @@ export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -548,7 +549,7 @@ export default function Index() {
                 Мы предоставляем широкий спектр услуг для наших клиентов
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {additionalServices.map((service, index) => (
                 <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
                   <CardHeader>
@@ -565,6 +566,33 @@ export default function Index() {
                 </Card>
               ))}
             </div>
+            <div className="max-w-4xl mx-auto mt-16">
+              <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20 shadow-xl">
+                <CardContent className="p-8 md:p-12">
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-6">
+                      <Icon name="Sparkles" size={32} className="text-primary" />
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-secondary mb-4">
+                      Не нашли нужную услугу?
+                    </h3>
+                    <p className="text-lg text-muted-foreground mb-8">
+                      Оставьте заявку, и мы подберём индивидуальное решение для вашего бизнеса
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg" onClick={() => setConsultationOpen(true)}>
+                        <Icon name="MessageCircle" size={20} className="mr-2" />
+                        Оставить заявку
+                      </Button>
+                      <Button size="lg" variant="outline" className="text-lg border-2" onClick={() => setQuizOpen(true)}>
+                        <Icon name="HelpCircle" size={20} className="mr-2" />
+                        Пройти тест
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -577,42 +605,42 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
                 <div className="relative">
                   <img 
                     src={achievements[0].image} 
                     alt={achievements[0].alt}
                     className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                    <p className="text-white font-semibold text-lg text-center px-4">{achievements[0].alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                    <p className="text-white font-semibold text-sm text-center px-3">{achievements[0].alt}</p>
                   </div>
                 </div>
               </div>
-              <div className="space-y-8">
-                <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+              <div className="space-y-6">
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
                   <div className="relative">
                     <img 
                       src={achievements[1].image} 
                       alt={achievements[1].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                      <p className="text-white font-semibold text-lg text-center px-4">{achievements[1].alt}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                      <p className="text-white font-semibold text-sm text-center px-3">{achievements[1].alt}</p>
                     </div>
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
                   <div className="relative">
                     <img 
                       src={achievements[2].image} 
                       alt={achievements[2].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                      <p className="text-white font-semibold text-lg text-center px-4">{achievements[2].alt}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                      <p className="text-white font-semibold text-sm text-center px-3">{achievements[2].alt}</p>
                     </div>
                   </div>
                 </div>
@@ -633,7 +661,7 @@ export default function Index() {
               Мы берем на себя все заботы о бухгалтерии, чтобы вы могли сосредоточиться на развитии.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
             {guarantees.map((guarantee, index) => (
               <Card 
                 key={index} 
@@ -650,6 +678,12 @@ export default function Index() {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+          <div className="text-center">
+            <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-lg px-12" onClick={() => setQuizOpen(true)}>
+              <Icon name="ClipboardCheck" size={20} className="mr-2" />
+              Пройти тест
+            </Button>
           </div>
         </div>
       </section>
@@ -1083,6 +1117,45 @@ export default function Index() {
               <Icon name="Phone" size={18} className="mr-2" />
               Получить консультацию
             </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={quizOpen} onOpenChange={setQuizOpen}>
+        <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-2xl text-secondary">Интерактивный тест</DialogTitle>
+            <DialogDescription>
+              Пройдите тест и получите персональные рекомендации для вашего бизнеса
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 mt-4">
+            {quizzes.map((quiz, index) => (
+              <div key={index} className={`p-6 rounded-xl bg-gradient-to-br ${quiz.gradient} border border-primary/20`}>
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Icon name={quiz.icon as any} size={24} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-lg text-secondary mb-1">{quiz.title}</h3>
+                    <p className="text-sm text-muted-foreground">{quiz.description}</p>
+                  </div>
+                </div>
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90" 
+                  onClick={() => {
+                    setQuizOpen(false);
+                    const quizElement = document.getElementById('quizzes');
+                    if (quizElement) {
+                      quizElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                >
+                  <Icon name="Play" size={18} className="mr-2" />
+                  Начать тест
+                </Button>
+              </div>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
