@@ -18,6 +18,15 @@ export default function Index() {
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [consultationOpen, setConsultationOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+
+  const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   useEffect(() => {
     const observerOptions = {
@@ -349,16 +358,16 @@ export default function Index() {
             </div>
           </div>
           <nav className="hidden lg:flex gap-6">
-            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
-            <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Виды услуг</a>
-            <a href="#achievements" className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
-            <a href="#priorities" className="text-sm font-medium hover:text-primary transition-colors">Приоритеты</a>
-            <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
-            <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
-            <a href="#resources" className="text-sm font-medium hover:text-primary transition-colors">Полезное</a>
-            <a href="#quizzes" className="text-sm font-medium hover:text-primary transition-colors">Тесты</a>
-            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
-            <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
+            <a href="#about" onClick={(e) => smoothScroll(e, 'about')} className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
+            <a href="#services" onClick={(e) => smoothScroll(e, 'services')} className="text-sm font-medium hover:text-primary transition-colors">Виды услуг</a>
+            <a href="#achievements" onClick={(e) => smoothScroll(e, 'achievements')} className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
+            <a href="#priorities" onClick={(e) => smoothScroll(e, 'priorities')} className="text-sm font-medium hover:text-primary transition-colors">Приоритеты</a>
+            <a href="#testimonials" onClick={(e) => smoothScroll(e, 'testimonials')} className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
+            <a href="#team" onClick={(e) => smoothScroll(e, 'team')} className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
+            <a href="#resources" onClick={(e) => smoothScroll(e, 'resources')} className="text-sm font-medium hover:text-primary transition-colors">Полезное</a>
+            <a href="#quizzes" onClick={(e) => smoothScroll(e, 'quizzes')} className="text-sm font-medium hover:text-primary transition-colors">Тесты</a>
+            <a href="#faq" onClick={(e) => smoothScroll(e, 'faq')} className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
+            <a href="#contact" onClick={(e) => smoothScroll(e, 'contact')} className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
           <div className="flex items-center gap-2">
             <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90" onClick={() => setConsultationOpen(true)}>Консультация</Button>
@@ -370,16 +379,16 @@ export default function Index() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px]">
                 <nav className="flex flex-col gap-3 mt-8 max-h-[calc(100vh-120px)] overflow-y-auto">
-                  <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">О нас</a>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Виды услуг</a>
-                  <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
-                  <a href="#priorities" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Приоритеты</a>
-                  <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
-                  <a href="#team" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
-                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Полезное</a>
-                  <a href="#quizzes" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
-                  <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
-                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
+                  <a href="#about" onClick={(e) => { smoothScroll(e, 'about'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">О нас</a>
+                  <a href="#services" onClick={(e) => { smoothScroll(e, 'services'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Виды услуг</a>
+                  <a href="#achievements" onClick={(e) => { smoothScroll(e, 'achievements'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
+                  <a href="#priorities" onClick={(e) => { smoothScroll(e, 'priorities'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Приоритеты</a>
+                  <a href="#testimonials" onClick={(e) => { smoothScroll(e, 'testimonials'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
+                  <a href="#team" onClick={(e) => { smoothScroll(e, 'team'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
+                  <a href="#resources" onClick={(e) => { smoothScroll(e, 'resources'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Полезное</a>
+                  <a href="#quizzes" onClick={(e) => { smoothScroll(e, 'quizzes'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
+                  <a href="#faq" onClick={(e) => { smoothScroll(e, 'faq'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
+                  <a href="#contact" onClick={(e) => { smoothScroll(e, 'contact'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
                   <Button className="w-full mt-4 bg-primary hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); setConsultationOpen(true); }}>Консультация</Button>
                 </nav>
               </SheetContent>
@@ -404,7 +413,7 @@ export default function Index() {
                   <Icon name="Phone" size={20} className="mr-2" />
                   Получить консультацию
                 </Button>
-                <Button size="lg" variant="outline" className="text-base md:text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary w-full sm:w-auto" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
+                <Button size="lg" variant="outline" className="text-base md:text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary w-full sm:w-auto" onClick={() => setServicesOpen(true)}>
                   <Icon name="FileText" size={20} className="mr-2" />
                   Наши услуги
                 </Button>
@@ -1000,6 +1009,59 @@ export default function Index() {
               Отправить заявку
             </Button>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={servicesOpen} onOpenChange={setServicesOpen}>
+        <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-2xl text-secondary">Наши услуги</DialogTitle>
+            <DialogDescription>
+              Полный спектр бухгалтерских и юридических услуг для вашего бизнеса
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 mt-4">
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-4 text-secondary">Основные услуги</h3>
+              <div className="grid gap-4">
+                {mainServices.map((service, index) => (
+                  <div key={index} className={`p-4 rounded-lg bg-gradient-to-br ${service.gradient} border border-primary/20`}>
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name={service.icon as any} size={20} className="text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-secondary mb-1">{service.title}</h4>
+                        <p className="text-sm text-muted-foreground">{service.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-4 text-secondary">Дополнительные услуги</h3>
+              <div className="grid gap-3">
+                {additionalServices.map((service, index) => (
+                  <div key={index} className="p-3 rounded-lg bg-white border border-gray-200 hover:border-primary/50 transition-colors">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon name={service.icon as any} size={16} className="text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-sm text-secondary mb-1">{service.title}</h4>
+                        <p className="text-xs text-muted-foreground">{service.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Button className="w-full bg-primary hover:bg-primary/90" size="lg" onClick={() => { setServicesOpen(false); setConsultationOpen(true); }}>
+              <Icon name="Phone" size={18} className="mr-2" />
+              Получить консультацию
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
