@@ -20,6 +20,10 @@ export default function Index() {
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
+  const [activeQuiz, setActiveQuiz] = useState<number | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
+  const [quizResult, setQuizResult] = useState<string | null>(null);
 
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -1121,42 +1125,379 @@ export default function Index() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={quizOpen} onOpenChange={setQuizOpen}>
+      <Dialog open={quizOpen} onOpenChange={(open) => {
+        setQuizOpen(open);
+        if (!open) {
+          setActiveQuiz(null);
+          setCurrentQuestion(0);
+          setQuizAnswers([]);
+          setQuizResult(null);
+        }
+      }}>
         <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="font-heading text-2xl text-secondary">Интерактивный тест</DialogTitle>
-            <DialogDescription>
-              Пройдите тест и получите персональные рекомендации для вашего бизнеса
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-6 mt-4">
-            {quizzes.map((quiz, index) => (
-              <div key={index} className={`p-6 rounded-xl bg-gradient-to-br ${quiz.gradient} border border-primary/20`}>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon name={quiz.icon as any} size={24} className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-lg text-secondary mb-1">{quiz.title}</h3>
-                    <p className="text-sm text-muted-foreground">{quiz.description}</p>
+          {activeQuiz === null ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-heading text-2xl text-secondary">Выберите тест</DialogTitle>
+                <DialogDescription>
+                  Пройдите тест и получите персональные рекомендации для вашего бизнеса
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 mt-4">
+                <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer" onClick={() => setActiveQuiz(0)}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon name="Briefcase" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Подходит ли вам аутсорсинг?</h3>
+                      <p className="text-sm text-muted-foreground">Узнайте, выгодно ли передать бухгалтерию профессионалам</p>
+                    </div>
                   </div>
                 </div>
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90" 
+                <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer" onClick={() => setActiveQuiz(1)}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon name="TrendingUp" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Оцените риски вашего бизнеса</h3>
+                      <p className="text-sm text-muted-foreground">Проверьте, насколько защищен ваш бизнес от штрафов и проблем</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer" onClick={() => setActiveQuiz(2)}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon name="Target" size={24} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Готовы ли вы к проверке?</h3>
+                      <p className="text-sm text-muted-foreground">Узнайте, насколько ваша компания готова к налоговой проверке</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : quizResult === null ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-heading text-2xl text-secondary">
+                  {activeQuiz === 0 && 'Подходит ли вам аутсорсинг?'}
+                  {activeQuiz === 1 && 'Оцените риски вашего бизнеса'}
+                  {activeQuiz === 2 && 'Готовы ли вы к проверке?'}
+                </DialogTitle>
+                <DialogDescription>
+                  Вопрос {currentQuestion + 1} из 4
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-6">
+                {activeQuiz === 0 && (
+                  <>
+                    {currentQuestion === 0 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Сколько времени вы тратите на бухгалтерию в месяц?</h3>
+                        {['Менее 5 часов', '5-20 часов', '20-40 часов', 'Более 40 часов'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 1 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Сколько у вас сотрудников?</h3>
+                        {['Только я (ИП)', 'До 10 человек', '10-50 человек', 'Более 50 человек'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 2 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Были ли у вас штрафы от налоговой?</h3>
+                        {['Нет, никогда', 'Да, небольшие (до 10 000 руб)', 'Да, значительные (более 10 000 руб)', 'Да, регулярно'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 3 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Есть ли у вас штатный бухгалтер?</h3>
+                        {['Нет', 'Да, но часто отсутствует', 'Да, но не справляется', 'Да, всё хорошо'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const newAnswers = [...quizAnswers, idx];
+                              setQuizAnswers(newAnswers);
+                              const score = newAnswers.reduce((sum, val) => sum + val, 0);
+                              let result = '';
+                              if (score <= 3) {
+                                result = '🎯 Аутсорсинг отлично подойдёт!\n\nВы тратите мало времени на бухгалтерию, но это отвлекает от развития бизнеса. Профессиональный аутсорсинг позволит вам сосредоточиться на главном.\n\n💰 Стоимость: от 5 000 руб/мес';
+                              } else if (score <= 6) {
+                                result = '✅ Аутсорсинг будет выгодным решением!\n\nВы тратите значительное время на бухгалтерию. Передача этих задач профессионалам сэкономит ваше время и снизит риск ошибок.\n\n💰 Стоимость: от 15 000 руб/мес';
+                              } else if (score <= 9) {
+                                result = '⚠️ Аутсорсинг необходим срочно!\n\nВы тратите слишком много времени на бухгалтерию и уже получали штрафы. Профессиональная команда поможет избежать проблем и освободит ваше время.\n\n💰 Стоимость: от 20 000 руб/мес';
+                              } else {
+                                result = '🚨 Критическая ситуация!\n\nВы перегружены бухгалтерией и регулярно получаете штрафы. Срочно нужен профессиональный аутсорсинг для защиты бизнеса.\n\n💰 Стоимость: от 25 000 руб/мес';
+                              }
+                              setQuizResult(result);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+                {activeQuiz === 1 && (
+                  <>
+                    {currentQuestion === 0 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Как часто вы проверяете бухгалтерскую отчётность?</h3>
+                        {['Каждый месяц', 'Раз в квартал', 'Раз в год', 'Не проверяю'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 1 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Ведёте ли вы учёт первичных документов?</h3>
+                        {['Да, всегда', 'Иногда забываем', 'Редко', 'Нет, не ведём'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 2 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Есть ли у вас просроченная задолженность перед бюджетом?</h3>
+                        {['Нет', 'Незначительная', 'Есть, работаем над погашением', 'Да, большая'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 3 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Знаете ли вы все изменения в налоговом законодательстве?</h3>
+                        {['Да, постоянно отслеживаю', 'Иногда узнаю', 'Редко слежу', 'Нет, не знаю'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const newAnswers = [...quizAnswers, idx];
+                              setQuizAnswers(newAnswers);
+                              const score = newAnswers.reduce((sum, val) => sum + val, 0);
+                              let result = '';
+                              if (score <= 2) {
+                                result = '✅ Низкий уровень риска\n\nВаш бизнес хорошо защищён! Вы следите за отчётностью и документами. Продолжайте в том же духе и рассмотрите профессиональную поддержку для оптимизации.\n\n💡 Рекомендация: Консультации по сложным вопросам';
+                              } else if (score <= 5) {
+                                result = '⚠️ Средний уровень риска\n\nЕсть области для улучшения. Нерегулярный контроль может привести к ошибкам и штрафам. Рекомендуем усилить контроль над бухгалтерией.\n\n💡 Рекомендация: Частичный аутсорсинг или аудит';
+                              } else if (score <= 8) {
+                                result = '🚨 Высокий уровень риска\n\nВаш бизнес в зоне риска! Отсутствие контроля и задолженности могут привести к серьёзным штрафам и проблемам с налоговой.\n\n💡 Рекомендация: Срочно нужен профессиональный бухгалтер';
+                              } else {
+                                result = '❌ Критический уровень риска\n\nОпасная ситуация! Без срочных мер возможны блокировки счетов, крупные штрафы и проблемы с контролирующими органами.\n\n💡 Рекомендация: Немедленно обратитесь к профессионалам';
+                              }
+                              setQuizResult(result);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+                {activeQuiz === 2 && (
+                  <>
+                    {currentQuestion === 0 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Все ли первичные документы у вас в порядке?</h3>
+                        {['Да, всё систематизировано', 'В основном да', 'Есть пробелы', 'Нет, большой беспорядок'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 1 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Проводили ли вы внутренний аудит в этом году?</h3>
+                        {['Да, регулярно', 'Да, один раз', 'Нет, планируем', 'Нет, не проводили'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 2 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Соответствует ли ваша зарплатная ведомость реальности?</h3>
+                        {['Да, полностью', 'В основном да', 'Есть расхождения', 'Нет, большие расхождения'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 3 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Все ли налоги уплачены вовремя за последний год?</h3>
+                        {['Да, все и вовремя', 'Были небольшие задержки', 'Есть просроченные платежи', 'Нет, много долгов'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const newAnswers = [...quizAnswers, idx];
+                              setQuizAnswers(newAnswers);
+                              const score = newAnswers.reduce((sum, val) => sum + val, 0);
+                              let result = '';
+                              if (score <= 2) {
+                                result = '✅ Отлично готовы!\n\nВаша компания в полном порядке! Документы систематизированы, налоги уплачены вовремя. Вы готовы к любой проверке.\n\n💡 Рекомендация: Поддерживайте текущий уровень';
+                              } else if (score <= 5) {
+                                result = '⚠️ Требуется подготовка\n\nЕсть области для улучшения перед проверкой. Рекомендуем провести внутренний аудит и систематизировать документы.\n\n💡 Рекомендация: Подготовка к проверке (2-4 недели)';
+                              } else if (score <= 8) {
+                                result = '🚨 Не готовы к проверке\n\nСерьёзные пробелы в документах и задолженности. При проверке высока вероятность штрафов и санкций.\n\n💡 Рекомендация: Срочная подготовка с профессионалами';
+                              } else {
+                                result = '❌ Критическое состояние\n\nКомпания совершенно не готова к проверке! Множество нарушений, которые приведут к крупным штрафам и возможным блокировкам.\n\n💡 Рекомендация: Немедленно обратитесь к специалистам!';
+                              }
+                              setQuizResult(result);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+              {currentQuestion > 0 && (
+                <Button
+                  variant="outline"
+                  className="mt-4"
                   onClick={() => {
-                    setQuizOpen(false);
-                    const quizElement = document.getElementById('quizzes');
-                    if (quizElement) {
-                      quizElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
+                    setCurrentQuestion(currentQuestion - 1);
+                    setQuizAnswers(quizAnswers.slice(0, -1));
                   }}
                 >
-                  <Icon name="Play" size={18} className="mr-2" />
-                  Начать тест
+                  <Icon name="ArrowLeft" size={18} className="mr-2" />
+                  Назад
+                </Button>
+              )}
+            </>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-heading text-2xl text-secondary">Результаты теста</DialogTitle>
+              </DialogHeader>
+              <div className="mt-4 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-primary/20">
+                <pre className="whitespace-pre-wrap text-foreground/90 font-sans leading-relaxed">{quizResult}</pre>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <Button 
+                  className="flex-1 bg-primary hover:bg-primary/90" 
+                  onClick={() => {
+                    setQuizOpen(false);
+                    setConsultationOpen(true);
+                    setActiveQuiz(null);
+                    setCurrentQuestion(0);
+                    setQuizAnswers([]);
+                    setQuizResult(null);
+                  }}
+                >
+                  <Icon name="Phone" size={18} className="mr-2" />
+                  Получить консультацию
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => {
+                    setActiveQuiz(null);
+                    setCurrentQuestion(0);
+                    setQuizAnswers([]);
+                    setQuizResult(null);
+                  }}
+                >
+                  <Icon name="RotateCcw" size={18} className="mr-2" />
+                  Пройти другой тест
                 </Button>
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </div>
