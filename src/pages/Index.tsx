@@ -257,9 +257,9 @@ export default function Index() {
 
   const quizzes = [
     {
-      title: 'Нужен ли вам аутсорсинг?',
-      description: 'Узнайте, стоит ли вам передавать бухгалтерию на аутсорсинг',
-      icon: 'HelpCircle',
+      title: 'Подходит ли вам аутсорсинг?',
+      description: 'Узнайте, выгодно ли передать бухгалтерию профессионалам',
+      icon: 'Briefcase',
       gradient: 'from-emerald-50 to-teal-50',
       questions: [
         {
@@ -287,9 +287,9 @@ export default function Index() {
       }
     },
     {
-      title: 'Какой режим налогообложения выбрать?',
-      description: 'Пройдите тест и узнайте оптимальную систему налогов',
-      icon: 'Calculator',
+      title: 'Оцените риски вашего бизнеса',
+      description: 'Проверьте, насколько защищен ваш бизнес от штрафов',
+      icon: 'TrendingUp',
       gradient: 'from-blue-50 to-cyan-50',
       questions: [
         {
@@ -611,8 +611,8 @@ export default function Index() {
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-4 items-start">
-              <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                <div className="relative">
+              <div className="group relative rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3 overflow-hidden">
+                <div className="relative overflow-hidden">
                   <img 
                     src={achievements[0].image} 
                     alt={achievements[0].alt}
@@ -625,8 +625,8 @@ export default function Index() {
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                  <div className="relative">
+                <div className="group relative rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3 overflow-hidden">
+                  <div className="relative overflow-hidden">
                     <img 
                       src={achievements[1].image} 
                       alt={achievements[1].alt}
@@ -638,8 +638,8 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                  <div className="relative">
+                <div className="group relative rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3 overflow-hidden">
+                  <div className="relative overflow-hidden">
                     <img 
                       src={achievements[2].image} 
                       alt={achievements[2].alt}
