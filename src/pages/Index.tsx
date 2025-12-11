@@ -364,12 +364,12 @@ export default function Index() {
           </div>
           <nav className="hidden lg:flex gap-6">
             <a href="#about" onClick={(e) => smoothScroll(e, 'about')} className="text-sm font-medium hover:text-primary transition-colors">О нас</a>
-            <a href="#services" onClick={(e) => smoothScroll(e, 'services')} className="text-sm font-medium hover:text-primary transition-colors">Виды услуг</a>
+            <a href="#services" onClick={(e) => smoothScroll(e, 'services')} className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
             <a href="#achievements" onClick={(e) => smoothScroll(e, 'achievements')} className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
-            <a href="#priorities" onClick={(e) => smoothScroll(e, 'priorities')} className="text-sm font-medium hover:text-primary transition-colors">Приоритеты</a>
+            <a href="#guarantees" onClick={(e) => smoothScroll(e, 'guarantees')} className="text-sm font-medium hover:text-primary transition-colors">Гарантии</a>
             <a href="#testimonials" onClick={(e) => smoothScroll(e, 'testimonials')} className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
             <a href="#team" onClick={(e) => smoothScroll(e, 'team')} className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
-            <a href="#resources" onClick={(e) => smoothScroll(e, 'resources')} className="text-sm font-medium hover:text-primary transition-colors">Полезное</a>
+            <a href="#resources" onClick={(e) => smoothScroll(e, 'resources')} className="text-sm font-medium hover:text-primary transition-colors">Материалы</a>
             <a href="#quizzes" onClick={(e) => smoothScroll(e, 'quizzes')} className="text-sm font-medium hover:text-primary transition-colors">Тесты</a>
             <a href="#faq" onClick={(e) => smoothScroll(e, 'faq')} className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" onClick={(e) => smoothScroll(e, 'contact')} className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
@@ -385,12 +385,12 @@ export default function Index() {
               <SheetContent side="right" className="w-[280px]">
                 <nav className="flex flex-col gap-3 mt-8 max-h-[calc(100vh-120px)] overflow-y-auto">
                   <a href="#about" onClick={(e) => { smoothScroll(e, 'about'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">О нас</a>
-                  <a href="#services" onClick={(e) => { smoothScroll(e, 'services'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Виды услуг</a>
+                  <a href="#services" onClick={(e) => { smoothScroll(e, 'services'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Услуги</a>
                   <a href="#achievements" onClick={(e) => { smoothScroll(e, 'achievements'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
-                  <a href="#priorities" onClick={(e) => { smoothScroll(e, 'priorities'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Приоритеты</a>
+                  <a href="#guarantees" onClick={(e) => { smoothScroll(e, 'guarantees'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Гарантии</a>
                   <a href="#testimonials" onClick={(e) => { smoothScroll(e, 'testimonials'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
                   <a href="#team" onClick={(e) => { smoothScroll(e, 'team'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
-                  <a href="#resources" onClick={(e) => { smoothScroll(e, 'resources'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Полезное</a>
+                  <a href="#resources" onClick={(e) => { smoothScroll(e, 'resources'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Материалы</a>
                   <a href="#quizzes" onClick={(e) => { smoothScroll(e, 'quizzes'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
                   <a href="#faq" onClick={(e) => { smoothScroll(e, 'faq'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
                   <a href="#contact" onClick={(e) => { smoothScroll(e, 'contact'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
@@ -609,41 +609,44 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-4 items-center">
-              <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                <div className="relative max-h-[400px] overflow-hidden">
+          <div className="max-w-3xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-3 items-start">
+              <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+                <div className="relative">
                   <img 
                     src={achievements[0].image} 
                     alt={achievements[0].alt}
                     className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                    style={{ maxHeight: '280px' }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                     <p className="text-white font-semibold text-xs text-center px-2">{achievements[0].alt}</p>
                   </div>
                 </div>
               </div>
-              <div className="space-y-4">
-                <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                  <div className="relative max-h-[190px] overflow-hidden">
+              <div className="space-y-3">
+                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+                  <div className="relative">
                     <img 
                       src={achievements[1].image} 
                       alt={achievements[1].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                      style={{ maxHeight: '135px' }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                       <p className="text-white font-semibold text-xs text-center px-2">{achievements[1].alt}</p>
                     </div>
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
-                  <div className="relative max-h-[190px] overflow-hidden">
+                <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-2">
+                  <div className="relative">
                     <img 
                       src={achievements[2].image} 
                       alt={achievements[2].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                      style={{ maxHeight: '135px' }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
                       <p className="text-white font-semibold text-xs text-center px-2">{achievements[2].alt}</p>
                     </div>
                   </div>
@@ -761,32 +764,6 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="priorities" className="py-12 md:py-20 bg-white scroll-animate opacity-0">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Наши приоритеты</h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              Что мы гарантируем каждому клиенту
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {guarantees.map((item, index) => (
-              <Card key={index} className="border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                    <Icon name={item.icon as any} size={24} className="text-primary" />
-                  </div>
-                  <CardTitle className="text-lg font-heading">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="resources" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 md:mb-16">
@@ -834,7 +811,52 @@ export default function Index() {
               Пройдите тест и получите персональные рекомендации
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => setQuizOpen(true)}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Briefcase" size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Подходит ли вам аутсорсинг?</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Узнайте, выгодно ли передать бухгалтерию профессионалам</p>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                <Icon name="Play" size={18} className="mr-2" />
+                Начать тест
+              </Button>
+            </div>
+            <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => { setActiveQuiz(1); setQuizOpen(true); }}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Icon name="TrendingUp" size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Оцените риски бизнеса</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Проверьте, насколько защищен ваш бизнес от штрафов</p>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                <Icon name="Play" size={18} className="mr-2" />
+                Начать тест
+              </Button>
+            </div>
+            <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer" onClick={() => { setActiveQuiz(2); setQuizOpen(true); }}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Icon name="Target" size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-semibold text-lg text-secondary mb-1">Готовы ли вы к проверке?</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Узнайте, насколько готова ваша компания к налоговой проверке</p>
+                </div>
+              </div>
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                <Icon name="Play" size={18} className="mr-2" />
+                Начать тест
+              </Button>
+            </div>
             {quizzes.map((quiz, index) => (
               <Quiz key={index} {...quiz} />
             ))}
