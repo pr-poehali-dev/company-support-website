@@ -609,42 +609,42 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-6 items-center">
-              <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
-                <div className="relative">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 items-center">
+              <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
+                <div className="relative max-h-[400px] overflow-hidden">
                   <img 
                     src={achievements[0].image} 
                     alt={achievements[0].alt}
                     className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                    <p className="text-white font-semibold text-sm text-center px-3">{achievements[0].alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                    <p className="text-white font-semibold text-xs text-center px-2">{achievements[0].alt}</p>
                   </div>
                 </div>
               </div>
-              <div className="space-y-6">
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
-                  <div className="relative">
+              <div className="space-y-4">
+                <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
+                  <div className="relative max-h-[190px] overflow-hidden">
                     <img 
                       src={achievements[1].image} 
                       alt={achievements[1].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                      <p className="text-white font-semibold text-sm text-center px-3">{achievements[1].alt}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                      <p className="text-white font-semibold text-xs text-center px-2">{achievements[1].alt}</p>
                     </div>
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white p-4">
-                  <div className="relative">
+                <div className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3">
+                  <div className="relative max-h-[190px] overflow-hidden">
                     <img 
                       src={achievements[2].image} 
                       alt={achievements[2].alt}
                       className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                      <p className="text-white font-semibold text-sm text-center px-3">{achievements[2].alt}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                      <p className="text-white font-semibold text-xs text-center px-2">{achievements[2].alt}</p>
                     </div>
                   </div>
                 </div>
