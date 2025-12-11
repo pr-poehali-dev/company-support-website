@@ -372,7 +372,7 @@ export default function Index() {
         </div>
       </header>
 
-      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-12 md:py-24 animate-fade-in overflow-hidden">
+      <section className="bg-gradient-to-br from-secondary via-emerald-700 to-primary text-white py-8 md:py-24 animate-fade-in overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
@@ -393,7 +393,7 @@ export default function Index() {
                   Наши услуги
                 </Button>
               </div>
-              <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
+              <div className="mt-6 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-8">
                 <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform duration-300">
                     <Icon name="Award" size={20} className="md:w-6 md:h-6" />
@@ -437,10 +437,10 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="about" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
+      <section id="about" className="py-8 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 md:mb-12">
+            <div className="text-center mb-6 md:mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">О нас</h2>
               <p className="text-base md:text-lg text-muted-foreground">
                 Мы предоставляем полный спектр бухгалтерских услуг
@@ -487,9 +487,9 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-white scroll-animate opacity-0">
+      <section id="services" className="py-10 md:py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className="text-center mb-8 md:mb-16 animate-slide-up">
             <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-3">ЧТО МЫ ПРЕДЛАГАЕМ</p>
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Ваши цели — наш приоритет</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -498,7 +498,7 @@ export default function Index() {
               и защиту от штрафов, чтобы вы могли экономить время и деньги.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
             {mainServices.map((service, index) => (
               <Card 
                 key={index} 
@@ -517,13 +517,13 @@ export default function Index() {
           </div>
           
           <div className="mt-16">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-heading font-bold text-secondary mb-4">Виды услуг</h3>
+            <div className="text-center mb-8 md:mb-12">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-secondary mb-3 md:mb-4">Виды услуг</h3>
               <p className="text-lg text-muted-foreground">
                 Мы предоставляем широкий спектр услуг для наших клиентов
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
               {additionalServices.map((service, index) => (
                 <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
                   <CardHeader>
@@ -540,7 +540,7 @@ export default function Index() {
                 </Card>
               ))}
             </div>
-            <div className="max-w-4xl mx-auto mt-16">
+            <div className="max-w-4xl mx-auto mt-8 md:mt-16">
               <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20 shadow-xl">
                 <CardContent className="p-8 md:p-12">
                   <div className="text-center">
@@ -571,10 +571,10 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="achievements" className="py-20 bg-gradient-to-br from-emerald-50 to-green-50 scroll-animate opacity-0">
+      <section id="achievements" className="py-10 md:py-20 bg-gradient-to-br from-emerald-50 to-green-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши достижения</h2>
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Наши достижения</h2>
             <p className="text-lg text-muted-foreground">
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
@@ -627,18 +627,18 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="guarantees" className="py-20 bg-white scroll-animate opacity-0">
+      <section id="guarantees" className="py-10 md:py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-xl md:text-4xl font-heading font-bold text-secondary mb-4 md:mb-6 leading-tight">
               ПРИ РАБОТЕ С ГЛАВБУХВЛ ВЫ ГАРАНТИРОВАННО ПОЛУЧАЕТЕ:
             </h2>
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Полный спектр услуг для успешного ведения вашего бизнеса. 
               Мы берем на себя все заботы о бухгалтерии, чтобы вы могли сосредоточиться на развитии.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto mb-6 md:mb-12">
             {guarantees.map((guarantee, index) => (
               <Card 
                 key={index} 
@@ -665,15 +665,15 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20 scroll-animate opacity-0">
+      <section id="testimonials" className="py-10 md:py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Отзывы клиентов</h2>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Отзывы клиентов</h2>
             <p className="text-lg text-muted-foreground">
               Что говорят о нас наши партнеры
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow border-t-4 border-t-primary">
                 <CardHeader>
@@ -694,17 +694,17 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="team" className="py-20 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 scroll-animate opacity-0">
+      <section id="team" className="py-10 md:py-20 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">{teamInfo.title}</h2>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">{teamInfo.title}</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               {teamInfo.description}
             </p>
           </div>
           
           <div className="max-w-6xl mx-auto">
-            <div className="mb-16">
+            <div className="mb-8 md:mb-16">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
                 <img 
                   src={teamInfo.image} 
@@ -719,7 +719,7 @@ export default function Index() {
               </div>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {teamInfo.features.map((feature, index) => (
                 <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -734,19 +734,19 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="resources" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
+      <section id="resources" className="py-8 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
               <Icon name="Gift" size={32} className="text-primary" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Полезная информация</h2>
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Полезная информация</h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Бесплатные материалы для скачивания
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
             {leadMagnets.map((magnet, index) => (
               <Card key={index} className={`bg-gradient-to-br ${magnet.gradient} border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
                 <CardHeader>
@@ -770,18 +770,18 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="quizzes" className="py-12 md:py-20 bg-white scroll-animate opacity-0">
+      <section id="quizzes" className="py-8 md:py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
               <Icon name="ClipboardCheck" size={32} className="text-primary" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Интерактивные тесты</h2>
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Интерактивные тесты</h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Пройдите тест и получите персональные рекомендации
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
             <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
               <CardHeader>
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -846,10 +846,10 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="faq" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
+      <section id="faq" className="py-10 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Частые вопросы</h2>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Частые вопросы</h2>
             <p className="text-lg text-muted-foreground">
               Ответы на самые популярные вопросы наших клиентов
             </p>
@@ -871,16 +871,16 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gradient-to-br from-secondary to-primary text-white scroll-animate opacity-0">
+      <section id="contact" className="py-10 md:py-20 bg-gradient-to-br from-secondary to-primary text-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-heading font-bold mb-4">Свяжитесь с нами</h2>
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl md:text-4xl font-heading font-bold mb-3 md:mb-4">Свяжитесь с нами</h2>
               <p className="text-xl text-white/90">
                 Оставьте заявку, и мы свяжемся с вами в течение часа
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               <Card className="bg-white/10 backdrop-blur border-white/20">
                 <CardHeader>
                   <CardTitle className="text-white font-heading">Контактная информация</CardTitle>
@@ -972,9 +972,9 @@ export default function Index() {
         </div>
       </section>
 
-      <footer className="bg-secondary text-white py-12">
+      <footer className="bg-secondary text-white py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img src="https://cdn.poehali.dev/projects/9640ad64-a924-4999-b70e-fff331ba6330/files/35aa1de6-567d-4412-ab88-2ea062fb35de.jpg" alt="ГЛАВБУХВЛ" className="w-10 h-10 object-contain" />
