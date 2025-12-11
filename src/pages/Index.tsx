@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -16,6 +16,28 @@ export default function Index() {
     message: ''
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const mainServices = [
     {
@@ -314,7 +336,7 @@ export default function Index() {
       <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Icon name="Leaf" size={28} className="text-primary md:w-8 md:h-8" />
+            <img src="https://cdn.poehali.dev/projects/9640ad64-a924-4999-b70e-fff331ba6330/files/35aa1de6-567d-4412-ab88-2ea062fb35de.jpg" alt="ГЛАВБУХВЛ" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
             <div>
               <h1 className="text-xl md:text-2xl font-heading font-bold text-secondary">ГЛАВБУХВЛ</h1>
               <p className="text-xs text-muted-foreground hidden sm:block">Бухгалтерия & Юриспруденция</p>
@@ -333,7 +355,7 @@ export default function Index() {
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
           <div className="flex items-center gap-2">
-            <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90">Консультация</Button>
+            <Button className="hidden md:inline-flex bg-primary hover:bg-primary/90" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>Консультация</Button>
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden">
@@ -352,7 +374,7 @@ export default function Index() {
                   <a href="#quizzes" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
                   <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
                   <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
-                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90">Консультация</Button>
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>Консультация</Button>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -372,18 +394,18 @@ export default function Index() {
                 Работаем с 2010 года. Более 200 компаний доверяют нам свой бизнес.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
-                <Button size="lg" variant="secondary" className="text-base md:text-lg w-full sm:w-auto">
+                <Button size="lg" variant="secondary" className="text-base md:text-lg w-full sm:w-auto" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                   <Icon name="Phone" size={20} className="mr-2" />
                   Получить консультацию
                 </Button>
-                <Button size="lg" variant="outline" className="text-base md:text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="text-base md:text-lg bg-white/10 text-white border-white hover:bg-white hover:text-secondary w-full sm:w-auto" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
                   <Icon name="FileText" size={20} className="mr-2" />
                   Наши услуги
                 </Button>
               </div>
               <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
-                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform duration-300">
                     <Icon name="Award" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
@@ -391,8 +413,8 @@ export default function Index() {
                     <div className="text-xs md:text-sm text-white/80">лет на рынке</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform duration-300">
                     <Icon name="Users" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
@@ -400,8 +422,8 @@ export default function Index() {
                     <div className="text-xs md:text-sm text-white/80">довольных клиентов</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform duration-300">
                     <Icon name="CheckCircle" size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
@@ -425,7 +447,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="about" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <section id="about" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 md:mb-12">
@@ -475,7 +497,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-white">
+      <section id="services" className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-slide-up">
             <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-3">ЧТО МЫ ПРЕДЛАГАЕМ</p>
@@ -532,7 +554,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="achievements" className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+      <section id="achievements" className="py-20 bg-gradient-to-br from-emerald-50 to-green-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши достижения</h2>
@@ -563,7 +585,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="guarantees" className="py-20 bg-white">
+      <section id="guarantees" className="py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-6">
@@ -595,7 +617,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20">
+      <section id="testimonials" className="py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Отзывы клиентов</h2>
@@ -624,7 +646,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="team" className="py-20 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+      <section id="team" className="py-20 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">{teamInfo.title}</h2>
@@ -664,7 +686,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="priorities" className="py-12 md:py-20 bg-white">
+      <section id="priorities" className="py-12 md:py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Наши приоритеты</h2>
@@ -690,7 +712,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="resources" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <section id="resources" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
@@ -726,7 +748,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="quizzes" className="py-12 md:py-20 bg-white">
+      <section id="quizzes" className="py-12 md:py-20 bg-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
@@ -745,7 +767,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="faq" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <section id="faq" className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Частые вопросы</h2>
@@ -770,7 +792,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gradient-to-br from-secondary to-primary text-white">
+      <section id="contact" className="py-20 bg-gradient-to-br from-secondary to-primary text-white scroll-animate opacity-0">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -876,7 +898,7 @@ export default function Index() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Icon name="Leaf" size={28} />
+                <img src="https://cdn.poehali.dev/projects/9640ad64-a924-4999-b70e-fff331ba6330/files/35aa1de6-567d-4412-ab88-2ea062fb35de.jpg" alt="ГЛАВБУХВЛ" className="w-10 h-10 object-contain" />
                 <span className="font-heading font-bold text-xl">ГЛАВБУХВЛ</span>
               </div>
               <p className="text-white/70 text-sm">
