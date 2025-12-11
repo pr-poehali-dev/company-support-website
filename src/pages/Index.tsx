@@ -577,25 +577,47 @@ export default function Index() {
               Сертификаты и награды, подтверждающие нашу экспертность
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
-            {achievements.map((achievement, index) => (
-              <div 
-                key={index} 
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white p-6"
-                style={{ width: 'min(100%, 300px)' }}
-              >
-                <div className="aspect-[3/4] flex items-center justify-center">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+                <div className="relative">
                   <img 
-                    src={achievement.image} 
-                    alt={achievement.alt}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    src={achievements[0].image} 
+                    alt={achievements[0].alt}
+                    className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                   />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
-                  <p className="text-white font-semibold text-center px-4">{achievement.alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                    <p className="text-white font-semibold text-lg text-center px-4">{achievements[0].alt}</p>
+                  </div>
                 </div>
               </div>
-            ))}
+              <div className="space-y-8">
+                <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+                  <div className="relative">
+                    <img 
+                      src={achievements[1].image} 
+                      alt={achievements[1].alt}
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                      <p className="text-white font-semibold text-lg text-center px-4">{achievements[1].alt}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white p-8">
+                  <div className="relative">
+                    <img 
+                      src={achievements[2].image} 
+                      alt={achievements[2].alt}
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                      <p className="text-white font-semibold text-lg text-center px-4">{achievements[2].alt}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
