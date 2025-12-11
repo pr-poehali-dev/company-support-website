@@ -827,7 +827,21 @@ export default function Index() {
                 </Button>
               </CardContent>
             </Card>
-            <Quiz {...quizzes[0]} />
+            <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <Icon name="Calculator" size={24} className="text-primary" />
+                </div>
+                <CardTitle className="text-lg font-heading">Какой режим налогообложения выбрать?</CardTitle>
+                <CardDescription>Узнайте оптимальную систему налогов для вашего бизнеса</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-primary hover:bg-primary/90" onClick={() => { setActiveQuiz(3); setQuizOpen(true); }}>
+                  <Icon name="Play" size={18} className="mr-2" />
+                  Начать тест
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -1176,9 +1190,10 @@ export default function Index() {
                   {activeQuiz === 0 && 'Подходит ли вам аутсорсинг?'}
                   {activeQuiz === 1 && 'Оцените риски вашего бизнеса'}
                   {activeQuiz === 2 && 'Готовы ли вы к проверке?'}
+                  {activeQuiz === 3 && 'Какой режим налогообложения выбрать?'}
                 </DialogTitle>
                 <DialogDescription>
-                  Вопрос {currentQuestion + 1} из 4
+                  Вопрос {currentQuestion + 1} из {activeQuiz === 3 ? 3 : 4}
                 </DialogDescription>
               </DialogHeader>
               <div className="mt-6">
@@ -1422,6 +1437,72 @@ export default function Index() {
                                 result = '🚨 Не готовы к проверке\n\nСерьёзные пробелы в документах и задолженности. При проверке высока вероятность штрафов и санкций.\n\n💡 Рекомендация: Срочная подготовка с профессионалами';
                               } else {
                                 result = '❌ Критическое состояние\n\nКомпания совершенно не готова к проверке! Множество нарушений, которые приведут к крупным штрафам и возможным блокировкам.\n\n💡 Рекомендация: Немедленно обратитесь к специалистам!';
+                              }
+                              setQuizResult(result);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+                {activeQuiz === 3 && (
+                  <>
+                    {currentQuestion === 0 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Какая у вас организационная форма?</h3>
+                        {['ИП', 'ООО', 'Ещё не зарегистрировал', 'Самозанятый'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 1 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Какой планируемый годовой доход?</h3>
+                        {['До 2,4 млн руб', '2,4-60 млн руб', '60-150 млн руб', 'Более 150 млн руб'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setQuizAnswers([...quizAnswers, idx]);
+                              setCurrentQuestion(currentQuestion + 1);
+                            }}
+                            className="w-full p-4 text-left rounded-lg border-2 border-gray-200 hover:border-primary hover:bg-primary/5 transition-all"
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {currentQuestion === 2 && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-secondary mb-4">Сколько планируете сотрудников?</h3>
+                        {['Работаю один', 'До 5 человек', '5-100 человек', 'Более 100 человек'].map((option, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              const newAnswers = [...quizAnswers, idx];
+                              setQuizAnswers(newAnswers);
+                              let result = '';
+                              if (newAnswers[0] === 3) {
+                                result = '📱 Режим самозанятости (НПД)\n\nОтличный вариант для старта! 4-6% налог, никакой отчётности, всё через приложение. Подходит, если работаете один и доход до 2,4 млн руб/год.\n\n💡 Рекомендация: Регистрация в приложении «Мой налог»';
+                              } else if (newAnswers[1] === 0) {
+                                result = '✅ УСН Доходы 6%\n\nСамый простой режим! Платите 6% с дохода, минимум отчётности. Идеально для малого бизнеса с небольшими расходами.\n\n💡 Рекомендация: Подходит для услуг и торговли';
+                              } else if (newAnswers[1] === 1 && newAnswers[2] <= 1) {
+                                result = '💼 УСН Доходы минус расходы 15%\n\nВыгодно, если расходы составляют более 60% от доходов. Можно снизить налоги, но нужно подтверждать все расходы документами.\n\n💡 Рекомендация: Подходит для производства';
+                              } else {
+                                result = '🏢 ОСНО (общая система)\n\nПодходит для крупного бизнеса. НДС 20%, налог на прибыль 20%. Больше отчётности, но возможность работать с крупными компаниями-плательщиками НДС.\n\n💡 Рекомендация: Необходима для работы с крупными компаниями';
                               }
                               setQuizResult(result);
                             }}
