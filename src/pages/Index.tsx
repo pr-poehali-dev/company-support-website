@@ -898,14 +898,14 @@ export default function Index() {
                     <Icon name="Mail" size={20} className="text-white mt-1" />
                     <div>
                       <div className="font-medium text-white">Email</div>
-                      <div className="text-white/80">info@glavbuhvl.ru</div>
+                      <div className="text-white/80">glavbuhvl@bk.ru</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="MapPin" size={20} className="text-white mt-1" />
                     <div>
                       <div className="font-medium text-white">Адрес</div>
-                      <div className="text-white/80">Владивосток, ул. Примерная, д. 10, офис 205</div>
+                      <div className="text-white/80">Владивосток, ул. Запорожская, д. 77, офис 634</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -989,15 +989,15 @@ export default function Index() {
               <div className="space-y-2 text-sm text-white/80">
                 <div className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  <span>+7 (495) 123-45-67</span>
+                  <span>+7 914 662 34 89</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="Mail" size={16} />
-                  <span>info@glavbuhvl.ru</span>
+                  <span>glavbuhvl@bk.ru</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="MapPin" size={16} />
-                  <span>Владивосток, ул. Примерная, 10</span>
+                  <span>Владивосток, ул. Запорожская, д. 77, офис 634</span>
                 </div>
               </div>
             </div>
