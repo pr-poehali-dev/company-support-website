@@ -890,7 +890,7 @@ export default function Index() {
                     <Icon name="Phone" size={20} className="text-white mt-1" />
                     <div>
                       <div className="font-medium text-white">Телефон</div>
-                      <div className="text-white/80">+7 (495) 123-45-67</div>
+                      <div className="text-white/80">+7 914 662 34 89</div>
                       <div className="text-white/80">+7 (800) 555-00-99</div>
                     </div>
                   </div>
