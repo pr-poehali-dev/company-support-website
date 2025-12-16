@@ -891,7 +891,7 @@ export default function Index() {
                     <div>
                       <div className="font-medium text-white">Телефон</div>
                       <div className="text-white/80">+7 914 662 34 89</div>
-                      <div className="text-white/80">+7 (800) 555-00-99</div>
+                      <div className="text-white/80"></div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
