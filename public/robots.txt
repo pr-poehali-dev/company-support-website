@@ -1,14 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Yandex
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-User-agent: Twitterbot
-Allow: /
+Sitemap: https://главбухvl.рф/sitemap.xml
 
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
-Allow: /
+Host: главбухvl.рф
