@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
+import { sendContactForm } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
 
 interface QuizQuestion {
   question: string;
@@ -20,12 +23,16 @@ interface QuizProps {
 }
 
 export default function Quiz({ title, description, questions, icon, gradient, onComplete }: QuizProps) {
+  const { toast } = useToast();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState('');
   const [isStarted, setIsStarted] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactData, setContactData] = useState({ name: '', email: '', phone: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleStart = () => {
     setIsStarted(true);
@@ -44,6 +51,50 @@ export default function Quiz({ title, description, questions, icon, gradient, on
       const finalResult = onComplete(newAnswers);
       setResult(finalResult);
       setShowResult(true);
+      setShowContactForm(true);
+    }
+  };
+
+  const handleSubmitContact = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const quizResults: Record<string, string> = {};
+    questions.forEach((q, idx) => {
+      quizResults[q.question] = q.options[answers[idx]];
+    });
+
+    try {
+      const apiResult = await sendContactForm({
+        type: 'quiz',
+        name: contactData.name,
+        email: contactData.email,
+        phone: contactData.phone,
+        message: `Результат квиза "${title}": ${result}`,
+        quizResults
+      });
+
+      if (apiResult.success) {
+        toast({
+          title: 'Результаты отправлены!',
+          description: 'Мы свяжемся с вами для детальной консультации.',
+        });
+        setShowContactForm(false);
+      } else {
+        toast({
+          title: 'Ошибка отправки',
+          description: apiResult.error || 'Попробуйте позже',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Не удалось отправить результаты',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -54,6 +105,8 @@ export default function Quiz({ title, description, questions, icon, gradient, on
     setShowResult(false);
     setResult('');
     setIsStarted(false);
+    setShowContactForm(false);
+    setContactData({ name: '', email: '', phone: '' });
   };
 
   if (!isStarted) {
@@ -89,16 +142,58 @@ export default function Quiz({ title, description, questions, icon, gradient, on
           <div className="bg-white rounded-xl p-6 mb-6">
             <p className="text-foreground leading-relaxed whitespace-pre-line">{result}</p>
           </div>
-          <div className="flex gap-3">
-            <Button onClick={handleReset} variant="outline" className="flex-1">
-              <Icon name="RotateCcw" size={20} className="mr-2" />
-              Пройти заново
-            </Button>
-            <Button className="flex-1">
-              <Icon name="Phone" size={20} className="mr-2" />
-              Получить консультацию
-            </Button>
-          </div>
+          
+          {showContactForm ? (
+            <form onSubmit={handleSubmitContact} className="space-y-4 bg-white rounded-xl p-6">
+              <p className="text-sm text-muted-foreground mb-4">
+                Оставьте контакты, и мы отправим вам детальные рекомендации
+              </p>
+              <Input
+                placeholder="Ваше имя"
+                value={contactData.name}
+                onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
+                required
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                value={contactData.email}
+                onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
+                required
+              />
+              <Input
+                type="tel"
+                placeholder="Телефон"
+                value={contactData.phone}
+                onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
+                required
+              />
+              <Button 
+                type="submit" 
+                className="w-full bg-primary hover:bg-primary/90"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Icon name="Loader2" size={18} className="mr-2 animate-spin" />
+                    Отправка...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="Send" size={18} className="mr-2" />
+                    Получить консультацию
+                  </>
+                )}
+              </Button>
+            </form>
+          ) : (
+            <div className="flex gap-3">
+              <Button onClick={handleReset} variant="outline" className="flex-1">
+                <Icon name="RotateCcw" size={20} className="mr-2" />
+                Пройти заново
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     );

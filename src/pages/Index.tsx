@@ -9,14 +9,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import Icon from '@/components/ui/icon';
 import Quiz from '@/components/Quiz';
 import ReviewsCarousel from '@/components/ReviewsCarousel';
+import { sendContactForm } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Index() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [consultationOpen, setConsultationOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -314,12 +318,42 @@ export default function Index() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-    setConsultationOpen(false);
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const result = await sendContactForm({
+        type: 'consultation',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message
+      });
+
+      if (result.success) {
+        toast({
+          title: 'Заявка отправлена!',
+          description: 'Мы свяжемся с вами в ближайшее время.',
+        });
+        setConsultationOpen(false);
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        toast({
+          title: 'Ошибка отправки',
+          description: result.error || 'Попробуйте позже или позвоните нам',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Не удалось отправить заявку',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -1154,9 +1188,23 @@ export default function Index() {
                 rows={4}
               />
             </div>
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
-              <Icon name="Send" size={18} className="mr-2" />
-              Отправить заявку
+            <Button 
+              type="submit" 
+              className="w-full bg-primary hover:bg-primary/90" 
+              size="lg"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Icon name="Loader2" size={18} className="mr-2 animate-spin" />
+                  Отправка...
+                </>
+              ) : (
+                <>
+                  <Icon name="Send" size={18} className="mr-2" />
+                  Отправить заявку
+                </>
+              )}
             </Button>
           </form>
         </DialogContent>

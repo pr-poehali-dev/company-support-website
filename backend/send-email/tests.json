@@ -1,0 +1,39 @@
+{
+  "tests": [
+    {
+      "name": "Test contact form submission",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "type": "contact",
+        "name": "Иван Иванов",
+        "email": "test@example.com",
+        "phone": "+7 (999) 123-45-67",
+        "message": "Хочу узнать стоимость ведения бухгалтерии"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test service request",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "type": "service",
+        "name": "Петр Петров",
+        "email": "petr@example.com",
+        "phone": "+7 (999) 999-99-99",
+        "service": "Бухгалтерское сопровождение",
+        "company": "ООО Ромашка"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
