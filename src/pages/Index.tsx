@@ -438,50 +438,77 @@ export default function Index() {
 
       <section id="about" className="py-8 md:py-20 bg-gradient-to-br from-green-50 to-emerald-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-6 md:mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">О нас</h2>
               <p className="text-base md:text-lg text-muted-foreground">
                 Мы предоставляем полный спектр бухгалтерских услуг
               </p>
             </div>
-            <Card className="shadow-lg border-none">
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  <p className="text-lg leading-relaxed text-foreground/90">
-                    <strong className="text-primary">Оказание бухгалтерских услуг предполагает:</strong>
-                  </p>
-                  <ul className="grid md:grid-cols-2 gap-4">
-                    {[
-                      'Полный или частичный аутсорсинг',
-                      'Ведение кадрового, налогового и упр. учета',
-                      'Составление отчетности, в том числе для компаний, временно приостановивших работу',
-                      'Оказание бухгалтерских услуг в период проверок',
-                      'Налоговый консалтинг',
-                      'Проведение аудиторских проверок и многое другое'
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-                        <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground/80">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="bg-primary/5 p-6 rounded-lg border-l-4 border-primary">
-                    <p className="text-foreground/90 leading-relaxed mb-4">
-                      Наши специалисты организуют восстановление учета, устранят системные ошибки, 
-                      а также обеспечат внутренний контроль движения ценностей.
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              <Card className="shadow-lg border-none">
+                <CardContent className="p-8">
+                  <div className="space-y-6">
+                    <p className="text-lg leading-relaxed text-foreground/90">
+                      <strong className="text-primary">Оказание бухгалтерских услуг предполагает:</strong>
                     </p>
-                    <p className="text-foreground/90 leading-relaxed mb-4">
-                      Услуги бухгалтера во Владивостоке предоставляются не только в офисе компании, 
-                      но так же работаем и удаленно.
-                    </p>
-                    <p className="text-primary font-semibold">
-                      Современный подход существенно повышает уровень конфиденциальности.
-                    </p>
+                    <ul className="grid gap-4">
+                      {[
+                        'Полный или частичный аутсорсинг',
+                        'Ведение кадрового, налогового и упр. учета',
+                        'Составление отчетности, в том числе для компаний, временно приостановивших работу',
+                        'Оказание бухгалтерских услуг в период проверок',
+                        'Налоговый консалтинг',
+                        'Проведение аудиторских проверок и многое другое'
+                      ].map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+                          <Icon name="CheckCircle" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-foreground/80">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="bg-primary/5 p-6 rounded-lg border-l-4 border-primary">
+                      <p className="text-foreground/90 leading-relaxed mb-4">
+                        Наши специалисты организуют восстановление учета, устранят системные ошибки, 
+                        а также обеспечат внутренний контроль движения ценностей.
+                      </p>
+                      <p className="text-foreground/90 leading-relaxed mb-4">
+                        Услуги бухгалтера во Владивостоке предоставляются не только в офисе компании, 
+                        но так же работаем и удаленно.
+                      </p>
+                      <p className="text-primary font-semibold">
+                        Современный подход существенно повышает уровень конфиденциальности.
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+
+              <div className="lg:sticky lg:top-24">
+                <Card className="shadow-lg border-none overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                      <video 
+                        controls 
+                        className="w-full h-full object-cover"
+                        poster="/video-poster.jpg"
+                      >
+                        <source src="/about-video.mp4" type="video/mp4" />
+                        Ваш браузер не поддерживает воспроизведение видео.
+                      </video>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-heading font-bold text-secondary mb-2">
+                        О нашей компании
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Узнайте больше о том, как мы помогаем бизнесу решать задачи бухгалтерского учёта
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
