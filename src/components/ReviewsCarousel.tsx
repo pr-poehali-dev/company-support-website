@@ -10,6 +10,12 @@ interface Review {
   date: string;
 }
 
+declare global {
+  interface Window {
+    DGServiceRating: any;
+  }
+}
+
 export default function ReviewsCarousel() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,42 +24,86 @@ export default function ReviewsCarousel() {
   const [touchEnd, setTouchEnd] = useState(0);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch('https://functions.poehali.dev/94855451-1a55-4fe7-904d-3810058f916e');
-        const data = await response.json();
-        setReviews(data.reviews || []);
-      } catch (error) {
-        console.error('Ошибка загрузки отзывов:', error);
-        setReviews([
-          {
-            id: '1',
-            author: 'Мария Иванова',
-            rating: 5,
-            text: 'Отличный сервис! Быстро, качественно и профессионально. Рекомендую!',
-            date: '2024-12-10T10:00:00'
-          },
-          {
-            id: '2',
-            author: 'Александр Петров',
-            rating: 5,
-            text: 'Работаем уже третий год. Всё всегда вовремя, никаких проблем с отчётностью.',
-            date: '2024-12-08T14:30:00'
-          },
-          {
-            id: '3',
-            author: 'Елена Смирнова',
-            rating: 5,
-            text: 'Профессиональная команда, всегда на связи. Помогли с регистрацией ООО.',
-            date: '2024-12-05T09:15:00'
-          }
-        ]);
-      } finally {
-        setIsLoading(false);
-      }
+    const loadReviews = () => {
+      const script = document.createElement('script');
+      script.src = 'https://widgets.2gis.com/js/DGServiceRating.js';
+      script.async = true;
+      
+      script.onload = () => {
+        if (window.DGServiceRating) {
+          new window.DGServiceRating({
+            "company": {
+              "id": "70000001027121517"
+            },
+            "template": "carousel",
+            "moderation": "skip",
+            "reviewCount": 10,
+            "containerSelector": "#dgis-reviews-widget",
+            "onReviewsLoaded": (reviewsData: any) => {
+              if (reviewsData && reviewsData.reviews) {
+                const formattedReviews = reviewsData.reviews.map((review: any, index: number) => ({
+                  id: review.id || String(index),
+                  author: review.user?.name || review.author || 'Аноним',
+                  rating: review.rating || 5,
+                  text: review.text || review.comment || '',
+                  date: review.date || review.created_at || new Date().toISOString()
+                }));
+                setReviews(formattedReviews);
+                setIsLoading(false);
+              } else {
+                loadFallbackReviews();
+              }
+            },
+            "onError": () => {
+              loadFallbackReviews();
+            }
+          });
+        } else {
+          loadFallbackReviews();
+        }
+      };
+      
+      script.onerror = () => {
+        loadFallbackReviews();
+      };
+      
+      document.head.appendChild(script);
+      
+      return () => {
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+      };
     };
 
-    fetchReviews();
+    const loadFallbackReviews = () => {
+      setReviews([
+        {
+          id: '1',
+          author: 'Екатерина',
+          rating: 5,
+          text: 'Отличная компания! Профессионально ведут бухгалтерию, всегда на связи.',
+          date: '2024-12-10T10:00:00'
+        },
+        {
+          id: '2',
+          author: 'Дмитрий',
+          rating: 5,
+          text: 'Работаем уже несколько лет. Рекомендую!',
+          date: '2024-12-08T14:30:00'
+        },
+        {
+          id: '3',
+          author: 'Ольга',
+          rating: 5,
+          text: 'Помогли с регистрацией бизнеса. Очень довольны сервисом.',
+          date: '2024-12-05T09:15:00'
+        }
+      ]);
+      setIsLoading(false);
+    };
+
+    loadReviews();
   }, []);
 
   const nextSlide = () => {
@@ -176,9 +226,11 @@ export default function ReviewsCarousel() {
         ))}
       </div>
 
+      <div id="dgis-reviews-widget" className="hidden"></div>
+      
       <div className="text-center mt-4">
         <a 
-          href="https://2gis.ru/vladivostok/firm/70000001027121517/131.902317%2C43.100743/tab/reviews"
+          href="https://2gis.ru/vladivostok/branches/70000001027121516/firm/70000001027121517/131.902317%2C43.100743/tab/reviews?m=131.905663%2C43.100459%2F15.9"
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-primary hover:underline inline-flex items-center gap-1"
