@@ -400,12 +400,6 @@ export default function TestErje() {
               <CardDescription>Введите ваше имя и отправьте результаты</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="bg-emerald-50 p-6 rounded-lg text-center">
-                <p className="text-sm text-gray-600 mb-2">Ваш результат:</p>
-                <p className="text-5xl font-bold text-emerald-600">{percentage}%</p>
-                <p className="text-gray-600 mt-2">{correctCount} из {questions.length} правильных ответов</p>
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="userName">Ваше имя</Label>
                 <Input
@@ -416,26 +410,13 @@ export default function TestErje() {
                 />
               </div>
 
-              <div className="flex gap-3">
-                <Button 
-                  onClick={handleSubmit} 
-                  className="flex-1"
-                  disabled={isSending}
-                >
-                  {isSending ? 'Отправка...' : 'Отправить результаты'}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setIsFinished(false);
-                    setCurrentQuestion(0);
-                    setAnswers({});
-                    setUserName('');
-                  }}
-                >
-                  Пройти заново
-                </Button>
-              </div>
+              <Button 
+                onClick={handleSubmit} 
+                className="w-full"
+                disabled={isSending}
+              >
+                {isSending ? 'Отправка...' : 'Отправить результаты'}
+              </Button>
             </CardContent>
           </Card>
         </div>
