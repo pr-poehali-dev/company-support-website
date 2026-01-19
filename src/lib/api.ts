@@ -1,5 +1,5 @@
-// PHP endpoint на вашем хостинге
 const SEND_EMAIL_URL = '/send-email.php';
+const IS_DEVELOPMENT = import.meta.env.DEV;
 
 interface ContactFormData {
   type: 'contact' | 'service' | 'consultation' | 'quiz' | 'callback';
@@ -13,6 +13,15 @@ interface ContactFormData {
 }
 
 export async function sendContactForm(data: ContactFormData): Promise<{ success: boolean; message?: string; error?: string }> {
+  if (IS_DEVELOPMENT) {
+    console.log('📧 РЕЖИМ РАЗРАБОТКИ: Форма отправлена (эмуляция)', data);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return { 
+      success: true, 
+      message: 'Форма отправлена! (В режиме разработки письмо не отправляется. Загрузите сайт на хостинг для реальной отправки)' 
+    };
+  }
+
   try {
     const response = await fetch(SEND_EMAIL_URL, {
       method: 'POST',
