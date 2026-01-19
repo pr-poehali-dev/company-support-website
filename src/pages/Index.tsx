@@ -338,10 +338,9 @@ export default function Index() {
             <a href="#services" onClick={(e) => smoothScroll(e, 'services')} className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
             <a href="#achievements" onClick={(e) => smoothScroll(e, 'achievements')} className="text-sm font-medium hover:text-primary transition-colors">Достижения</a>
             <a href="#guarantees" onClick={(e) => smoothScroll(e, 'guarantees')} className="text-sm font-medium hover:text-primary transition-colors">Гарантии</a>
+            <a href="#insurance" onClick={(e) => smoothScroll(e, 'insurance')} className="text-sm font-medium hover:text-primary transition-colors">Страхование</a>
             <a href="#testimonials" onClick={(e) => smoothScroll(e, 'testimonials')} className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
             <a href="#team" onClick={(e) => smoothScroll(e, 'team')} className="text-sm font-medium hover:text-primary transition-colors">Команда</a>
-            <a href="#resources" onClick={(e) => smoothScroll(e, 'resources')} className="text-sm font-medium hover:text-primary transition-colors">Материалы</a>
-            <a href="#quizzes" onClick={(e) => smoothScroll(e, 'quizzes')} className="text-sm font-medium hover:text-primary transition-colors">Тесты</a>
             <a href="#faq" onClick={(e) => smoothScroll(e, 'faq')} className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" onClick={(e) => smoothScroll(e, 'contact')} className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
           </nav>
@@ -359,10 +358,9 @@ export default function Index() {
                   <a href="#services" onClick={(e) => { smoothScroll(e, 'services'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Услуги</a>
                   <a href="#achievements" onClick={(e) => { smoothScroll(e, 'achievements'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Достижения</a>
                   <a href="#guarantees" onClick={(e) => { smoothScroll(e, 'guarantees'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Гарантии</a>
+                  <a href="#insurance" onClick={(e) => { smoothScroll(e, 'insurance'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Страхование</a>
                   <a href="#testimonials" onClick={(e) => { smoothScroll(e, 'testimonials'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Отзывы</a>
                   <a href="#team" onClick={(e) => { smoothScroll(e, 'team'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Команда</a>
-                  <a href="#resources" onClick={(e) => { smoothScroll(e, 'resources'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Материалы</a>
-                  <a href="#quizzes" onClick={(e) => { smoothScroll(e, 'quizzes'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Тесты</a>
                   <a href="#faq" onClick={(e) => { smoothScroll(e, 'faq'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">FAQ</a>
                   <a href="#contact" onClick={(e) => { smoothScroll(e, 'contact'); setMobileMenuOpen(false); }} className="text-base font-medium hover:text-primary transition-colors py-2">Контакты</a>
                   <Button className="w-full mt-4 bg-primary hover:bg-primary/90" onClick={() => { setMobileMenuOpen(false); setConsultationOpen(true); }}>Консультация</Button>
@@ -662,6 +660,87 @@ export default function Index() {
               <Icon name="ClipboardCheck" size={20} className="mr-2" />
               Пройти тест
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="insurance" className="py-10 md:py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 scroll-animate opacity-0">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <Card className="border-none shadow-2xl overflow-hidden bg-white/80 backdrop-blur-sm">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="bg-gradient-to-br from-primary to-secondary p-8 md:p-12 text-white flex flex-col justify-center">
+                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6">
+                    <Icon name="ShieldCheck" size={48} className="text-white" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                    Страхование профессиональной ответственности
+                  </h2>
+                  <p className="text-lg text-white/90 leading-relaxed mb-6">
+                    Ваш бизнес под надежной защитой. Мы несем полную материальную ответственность за качество наших услуг.
+                  </p>
+                  <div className="flex items-center gap-3 mb-4">
+                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
+                    <p className="text-white/95">Страховая сумма до <strong className="text-xl">5 000 000 ₽</strong></p>
+                  </div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
+                    <p className="text-white/95">Полное возмещение убытков при ошибках</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
+                    <p className="text-white/95">Гарантия юридической защиты</p>
+                  </div>
+                </div>
+                
+                <div className="p-8 md:p-12 flex flex-col justify-center bg-white">
+                  <div className="mb-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full mb-6">
+                      <Icon name="BadgeCheck" size={20} />
+                      <span className="font-semibold text-sm">Действующий полис</span>
+                    </div>
+                    <h3 className="text-2xl font-heading font-bold text-secondary mb-4">
+                      Полис страхования профессиональной ответственности
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Мы застрахованы в ведущей страховой компании. Это значит, что в случае любых финансовых потерь, связанных с нашей работой, вы получите полную компенсацию.
+                    </p>
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-start gap-3">
+                        <Icon name="FileText" size={20} className="text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-secondary">Страховая компания</p>
+                          <p className="text-sm text-muted-foreground">АО «СОГАЗ»</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Icon name="Calendar" size={20} className="text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-secondary">Срок действия</p>
+                          <p className="text-sm text-muted-foreground">До 31.12.2025</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Icon name="Banknote" size={20} className="text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-secondary">Страховая сумма</p>
+                          <p className="text-sm text-muted-foreground">5 000 000 рублей</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    size="lg" 
+                    className="w-full bg-primary hover:bg-primary/90 text-lg group"
+                    onClick={() => window.open('/insurance-policy.pdf', '_blank')}
+                  >
+                    <Icon name="FileDown" size={20} className="mr-2 group-hover:animate-bounce" />
+                    Скачать полис страхования
+                  </Button>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
