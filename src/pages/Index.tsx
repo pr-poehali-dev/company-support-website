@@ -572,13 +572,14 @@ export default function Index() {
 
       <section id="achievements" className="py-10 md:py-20 bg-gradient-to-br from-emerald-50 to-green-50 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Наши достижения</h2>
             <p className="text-lg text-muted-foreground">
-              Сертификаты и награды, подтверждающие нашу экспертность
+              Сертификаты, награды и профессиональное страхование
             </p>
           </div>
-          <div className="max-w-4xl mx-auto">
+          
+          <div className="max-w-6xl mx-auto space-y-8">
             <div className="grid md:grid-cols-2 gap-4 items-start">
               <div className="group relative rounded-lg shadow-md hover:shadow-lg transition-all duration-500 hover:scale-[1.02] bg-white p-3 overflow-hidden">
                 <div className="relative overflow-hidden">
@@ -622,6 +623,80 @@ export default function Index() {
                 </div>
               </div>
             </div>
+
+            <Card id="insurance" className="border-none shadow-2xl overflow-hidden bg-white/90 backdrop-blur-sm">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="bg-gradient-to-br from-primary to-secondary p-8 md:p-10 text-white flex flex-col justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6">
+                    <Icon name="ShieldCheck" size={40} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold mb-3">
+                    Страхование профессиональной ответственности
+                  </h3>
+                  <p className="text-base text-white/90 leading-relaxed mb-6">
+                    Ваш бизнес под надежной защитой. Мы несем полную материальную ответственность за качество наших услуг.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
+                      <p className="text-white/95 text-sm">Страховая сумма до <strong className="text-lg">5 000 000 ₽</strong></p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
+                      <p className="text-white/95 text-sm">Полное возмещение убытков при ошибках</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
+                      <p className="text-white/95 text-sm">Гарантия юридической защиты</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-8 md:p-10 flex flex-col justify-center bg-white">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full mb-6 self-start">
+                    <Icon name="BadgeCheck" size={18} />
+                    <span className="font-semibold text-sm">Действующий полис</span>
+                  </div>
+                  <h4 className="text-xl font-heading font-bold text-secondary mb-4">
+                    Полис страхования профессиональной ответственности
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                    Мы застрахованы в ведущей страховой компании. Это значит, что в случае любых финансовых потерь, связанных с нашей работой, вы получите полную компенсацию.
+                  </p>
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-start gap-3">
+                      <Icon name="FileText" size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-secondary text-sm">Страховая компания</p>
+                        <p className="text-xs text-muted-foreground">АО «СОГАЗ»</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Calendar" size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-secondary text-sm">Срок действия</p>
+                        <p className="text-xs text-muted-foreground">До 31.12.2025</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Icon name="Banknote" size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-secondary text-sm">Страховая сумма</p>
+                        <p className="text-xs text-muted-foreground">5 000 000 рублей</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 group"
+                    onClick={() => window.open('/insurance-policy.pdf', '_blank')}
+                  >
+                    <Icon name="FileDown" size={18} className="mr-2 group-hover:animate-bounce" />
+                    Скачать полис страхования
+                  </Button>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
@@ -664,86 +739,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="insurance" className="py-10 md:py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 scroll-animate opacity-0">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <Card className="border-none shadow-2xl overflow-hidden bg-white/80 backdrop-blur-sm">
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="bg-gradient-to-br from-primary to-secondary p-8 md:p-12 text-white flex flex-col justify-center">
-                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6">
-                    <Icon name="ShieldCheck" size={48} className="text-white" />
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-                    Страхование профессиональной ответственности
-                  </h2>
-                  <p className="text-lg text-white/90 leading-relaxed mb-6">
-                    Ваш бизнес под надежной защитой. Мы несем полную материальную ответственность за качество наших услуг.
-                  </p>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
-                    <p className="text-white/95">Страховая сумма до <strong className="text-xl">5 000 000 ₽</strong></p>
-                  </div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
-                    <p className="text-white/95">Полное возмещение убытков при ошибках</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="CheckCircle2" size={24} className="text-white flex-shrink-0" />
-                    <p className="text-white/95">Гарантия юридической защиты</p>
-                  </div>
-                </div>
-                
-                <div className="p-8 md:p-12 flex flex-col justify-center bg-white">
-                  <div className="mb-8">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full mb-6">
-                      <Icon name="BadgeCheck" size={20} />
-                      <span className="font-semibold text-sm">Действующий полис</span>
-                    </div>
-                    <h3 className="text-2xl font-heading font-bold text-secondary mb-4">
-                      Полис страхования профессиональной ответственности
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-6">
-                      Мы застрахованы в ведущей страховой компании. Это значит, что в случае любых финансовых потерь, связанных с нашей работой, вы получите полную компенсацию.
-                    </p>
-                    <div className="space-y-3 mb-8">
-                      <div className="flex items-start gap-3">
-                        <Icon name="FileText" size={20} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-secondary">Страховая компания</p>
-                          <p className="text-sm text-muted-foreground">АО «СОГАЗ»</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Icon name="Calendar" size={20} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-secondary">Срок действия</p>
-                          <p className="text-sm text-muted-foreground">До 31.12.2025</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Icon name="Banknote" size={20} className="text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-secondary">Страховая сумма</p>
-                          <p className="text-sm text-muted-foreground">5 000 000 рублей</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    size="lg" 
-                    className="w-full bg-primary hover:bg-primary/90 text-lg group"
-                    onClick={() => window.open('/insurance-policy.pdf', '_blank')}
-                  >
-                    <Icon name="FileDown" size={20} className="mr-2 group-hover:animate-bounce" />
-                    Скачать полис страхования
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
+
 
       <section id="testimonials" className="py-10 md:py-20 scroll-animate opacity-0">
         <div className="container mx-auto px-4">
