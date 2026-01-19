@@ -1019,9 +1019,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/10 text-center text-sm text-white/70">
-            © 2024 ГЛАВБУХВЛ. Все права защищены.
-          </div>
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-white/70">© 2026 ГЛАВБУХВЛ. Все права защищены.</div>
         </div>
       </footer>
 
