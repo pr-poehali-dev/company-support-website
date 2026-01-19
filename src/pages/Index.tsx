@@ -634,20 +634,20 @@ export default function Index() {
                     Страхование профессиональной ответственности
                   </h3>
                   <p className="text-base text-white/90 leading-relaxed mb-6">
-                    Ваш бизнес под надежной защитой. Мы несем полную материальную ответственность за качество наших услуг.
+                    Официальная страховка профессиональной ответственности. Защита вашего бизнеса от финансовых рисков.
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
-                      <p className="text-white/95 text-sm">Страховая сумма до <strong className="text-lg">5 000 000 ₽</strong></p>
+                      <p className="text-white/95 text-sm">Страховая сумма <strong className="text-lg">500 000 ₽</strong></p>
                     </div>
                     <div className="flex items-center gap-3">
                       <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
-                      <p className="text-white/95 text-sm">Полное возмещение убытков при ошибках</p>
+                      <p className="text-white/95 text-sm">Покрытие штрафов и пени</p>
                     </div>
                     <div className="flex items-center gap-3">
                       <Icon name="CheckCircle2" size={20} className="text-white flex-shrink-0" />
-                      <p className="text-white/95 text-sm">Гарантия юридической защиты</p>
+                      <p className="text-white/95 text-sm">Расходы на юридическую защиту до 250 000 ₽</p>
                     </div>
                   </div>
                 </div>
@@ -661,28 +661,28 @@ export default function Index() {
                     Полис страхования профессиональной ответственности
                   </h4>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    Мы застрахованы в ведущей страховой компании. Это значит, что в случае любых финансовых потерь, связанных с нашей работой, вы получите полную компенсацию.
+                    Официальный полис страхования профессиональной ответственности при осуществлении бухгалтерской деятельности. Полная защита ваших интересов.
                   </p>
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-3">
                       <Icon name="FileText" size={18} className="text-primary mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-secondary text-sm">Страховая компания</p>
-                        <p className="text-xs text-muted-foreground">АО «СОГАЗ»</p>
+                        <p className="text-xs text-muted-foreground">СПАО «Ингосстрах»</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Icon name="Calendar" size={18} className="text-primary mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-secondary text-sm">Срок действия</p>
-                        <p className="text-xs text-muted-foreground">До 31.12.2025</p>
+                        <p className="text-xs text-muted-foreground">04.09.2025 — 03.09.2026</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Icon name="Banknote" size={18} className="text-primary mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-secondary text-sm">Страховая сумма</p>
-                        <p className="text-xs text-muted-foreground">5 000 000 рублей</p>
+                        <p className="font-semibold text-secondary text-sm">Номер договора</p>
+                        <p className="text-xs text-muted-foreground">№ 433-502-167763/25</p>
                       </div>
                     </div>
                   </div>
