@@ -541,7 +541,7 @@ export default function TestErje() {
               </Button>
               <Button
                 onClick={goToNext}
-                disabled={!currentAnswer || (Array.isArray(currentAnswer) && currentAnswer.length === 0)}
+                disabled={currentAnswer === undefined || (Array.isArray(currentAnswer) && currentAnswer.length === 0)}
               >
                 {currentQuestion === questions.length - 1 ? 'Завершить' : 'Далее'}
                 <Icon name="ChevronRight" size={16} className="ml-2" />
