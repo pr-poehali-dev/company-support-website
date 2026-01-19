@@ -1,6 +1,5 @@
-import funcUrls from '../../backend/func2url.json';
-
-const SEND_EMAIL_URL = funcUrls['send-email'];
+// PHP endpoint на вашем хостинге
+const SEND_EMAIL_URL = '/send-email.php';
 
 interface ContactFormData {
   type: 'contact' | 'service' | 'consultation' | 'quiz' | 'callback';
