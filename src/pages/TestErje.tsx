@@ -5,7 +5,10 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
+import { sendContactForm } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
 
 interface Question {
   id: number;
@@ -224,261 +227,213 @@ const questions: Question[] = [
     difficulty: 'advanced',
     options: [
       'Да, всё списывается — алименты тоже',
-      'Нет, алименты не списываются — это закон, даже при банкротстве',
-      'Алименты можно списать, если они старше 3 лет',
-      'Зависит от судьи — иногда списывают, иногда нет'
+      'Нет, алименты нельзя списать — только кредиты',
+      'Алименты списываются, только если суд признает их незаконными',
+      'Алименты не списываются, но суд может их снизить'
     ],
     correct: 1
   },
   {
     id: 17,
-    question: 'Клиент уже прошёл банкротство, но через год снова накопил долги. Может ли он подать на банкротство повторно?',
+    question: 'Клиент требует: «Я хочу подать на банкротство завтра». Что вы отвечаете?',
     type: 'single',
     difficulty: 'advanced',
     options: [
-      'Нет, только один раз в жизни',
-      'Да, но только через 5 лет после завершения предыдущего банкротства',
-      'Да, без ограничений — каждый раз, когда долги накопятся',
-      'Да, но только если долг превышает 1 млн рублей'
+      'Хорошо, мы всё подготовим — давайте назначим завтра',
+      'Мы не можем так быстро — нужно собрать все документы и подготовить заявление',
+      'Подача — это долгий процесс. Обычно это занимает 1-3 недели, потому что нужно проверить все документы, списки кредиторов и составить юридически правильное заявление',
+      'Мы подадим завтра, но это будет стоить дороже — срочность — это допуслуга'
+    ],
+    correct: 2
+  },
+  {
+    id: 18,
+    question: 'Клиент говорит: «Мне сказали, что после банкротства я не смогу брать кредиты 5 лет — это правда?»',
+    type: 'single',
+    difficulty: 'advanced',
+    options: [
+      'Да, это правда — суд запретит вам кредиты',
+      'Нет, это неправда — вы можете брать кредиты сразу',
+      'Да, но только на сумму до 100 000 рублей',
+      'Да, это так — но запрет действует только на кредиты свыше 100 000 рублей, и вы обязаны сообщать банку о банкротстве'
+    ],
+    correct: 3
+  },
+  {
+    id: 19,
+    question: 'Клиент спрашивает: «А если у меня долг перед ФНС — его тоже можно списать?»',
+    type: 'single',
+    difficulty: 'advanced',
+    options: [
+      'Да, все долги списываются — в том числе налоги',
+      'Нет, долги перед ФНС не списываются',
+      'Долги перед ФНС не списываются — но суд может их реструктуризировать',
+      'Долги перед ФНС можно списать только если у вас нет имущества'
+    ],
+    correct: 1
+  },
+  {
+    id: 20,
+    question: 'Клиент хочет скрыть доход от финансового управляющего. Что вы говорите?',
+    type: 'single',
+    difficulty: 'advanced',
+    options: [
+      'Говорите: «Это ваше право — я ничего не скажу»',
+      'Предупреждаете: «Это уголовное преступление — я не могу участвовать в этом, и я должен сообщить об этом»',
+      'Говорите: «Я не знаю — спросите у юриста»',
+      'Молчите и делаете вид, что не слышали'
     ],
     correct: 1
   }
 ];
 
 export default function TestErje() {
-  const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number | number[]>>({});
-  const [finished, setFinished] = useState(false);
-  const [showDifficulty, setShowDifficulty] = useState<'all' | 'basic' | 'advanced'>('all');
+  const [isFinished, setIsFinished] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const { toast } = useToast();
 
-  const filteredQuestions = questions.filter(q => 
-    showDifficulty === 'all' || q.difficulty === showDifficulty
-  );
-
-  const handleStart = (difficulty: 'all' | 'basic' | 'advanced') => {
-    setShowDifficulty(difficulty);
-    setStarted(true);
-    setCurrentQuestion(0);
-    setAnswers({});
-    setFinished(false);
+  const handleSingleAnswer = (questionId: number, optionIndex: number) => {
+    setAnswers({ ...answers, [questionId]: optionIndex });
   };
 
-  const handleAnswer = (value: number | number[]) => {
-    setAnswers({ ...answers, [filteredQuestions[currentQuestion].id]: value });
-  };
-
-  const handleNext = () => {
-    if (currentQuestion < filteredQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+  const handleMultipleAnswer = (questionId: number, optionIndex: number, checked: boolean) => {
+    const current = (answers[questionId] as number[]) || [];
+    if (checked) {
+      setAnswers({ ...answers, [questionId]: [...current, optionIndex] });
     } else {
-      setFinished(true);
+      setAnswers({ ...answers, [questionId]: current.filter((i) => i !== optionIndex) });
     }
   };
 
-  const handlePrev = () => {
+  const goToNext = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setIsFinished(true);
+    }
+  };
+
+  const goToPrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
     }
   };
 
-  const calculateScore = () => {
-    let correct = 0;
-    filteredQuestions.forEach(q => {
+  const calculateResults = () => {
+    let correctCount = 0;
+    const detailedResults: Record<string, string> = {};
+
+    questions.forEach((q) => {
       const userAnswer = answers[q.id];
-      if (q.type === 'single') {
-        if (userAnswer === q.correct) correct++;
-      } else {
-        const correctAnswers = q.correct as number[];
-        const userAnswers = userAnswer as number[];
-        if (userAnswers && 
-            correctAnswers.length === userAnswers.length &&
-            correctAnswers.every(a => userAnswers.includes(a))) {
-          correct++;
-        }
-      }
+      const isCorrect = JSON.stringify(userAnswer) === JSON.stringify(q.correct);
+      
+      if (isCorrect) correctCount++;
+
+      const userAnswerText = q.type === 'single' 
+        ? q.options[userAnswer as number] || 'Не ответил'
+        : (userAnswer as number[])?.map(i => q.options[i]).join(', ') || 'Не ответил';
+
+      detailedResults[`Вопрос ${q.id}: ${q.question}`] = userAnswerText;
     });
-    return { correct, total: filteredQuestions.length };
+
+    return { correctCount, detailedResults };
   };
 
-  const getGrade = (score: number, total: number) => {
-    const percentage = (score / total) * 100;
-    if (percentage >= 90) return { text: 'Отлично', color: 'text-green-600', emoji: '🎉' };
-    if (percentage >= 75) return { text: 'Хорошо', color: 'text-blue-600', emoji: '✅' };
-    if (percentage >= 60) return { text: 'Удовлетворительно', color: 'text-yellow-600', emoji: '📝' };
-    return { text: 'Требуется доработка', color: 'text-red-600', emoji: '📚' };
+  const handleSubmit = async () => {
+    if (!userName.trim()) {
+      toast({
+        title: 'Введите имя',
+        description: 'Пожалуйста, укажите ваше имя перед отправкой',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsSending(true);
+    const { correctCount, detailedResults } = calculateResults();
+
+    const result = await sendContactForm({
+      type: 'quiz',
+      name: userName,
+      email: 'test@glavbuhvl.ru',
+      phone: '-',
+      message: `Результат теста: ${correctCount} из ${questions.length} правильных ответов (${Math.round((correctCount / questions.length) * 100)}%)`,
+      quizResults: detailedResults
+    });
+
+    setIsSending(false);
+
+    if (result.success) {
+      toast({
+        title: 'Тест отправлен!',
+        description: 'Ваши результаты успешно отправлены. Спасибо за прохождение теста!',
+      });
+    } else {
+      toast({
+        title: 'Ошибка',
+        description: result.error || 'Не удалось отправить результаты',
+        variant: 'destructive',
+      });
+    }
   };
 
-  if (!started) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <Card className="border-2 shadow-xl">
-            <CardHeader className="text-center space-y-4">
-              <div className="flex justify-center">
-                <Icon name="ClipboardCheck" size={64} className="text-green-600" />
-              </div>
-              <CardTitle className="text-4xl font-bold text-gray-900">
-                Тестирование кандидатов
-              </CardTitle>
-              <CardDescription className="text-lg">
-                Проверка знаний менеджера по работе с клиентами и банкротству
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid gap-4">
-                <Button 
-                  onClick={() => handleStart('all')} 
-                  size="lg" 
-                  className="h-20 text-lg bg-green-600 hover:bg-green-700"
-                >
-                  <Icon name="Target" className="mr-2" size={24} />
-                  Полный тест (18 вопросов)
-                </Button>
-                
-                <Button 
-                  onClick={() => handleStart('basic')} 
-                  size="lg" 
-                  variant="outline"
-                  className="h-20 text-lg border-2"
-                >
-                  <Icon name="User" className="mr-2" size={24} />
-                  Базовый уровень (8 вопросов)
-                </Button>
-                
-                <Button 
-                  onClick={() => handleStart('advanced')} 
-                  size="lg" 
-                  variant="outline"
-                  className="h-20 text-lg border-2"
-                >
-                  <Icon name="Award" className="mr-2" size={24} />
-                  Продвинутый уровень (10 вопросов)
-                </Button>
-              </div>
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const currentQ = questions[currentQuestion];
+  const currentAnswer = answers[currentQ?.id];
 
-              <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
-                <h3 className="font-semibold text-lg mb-3 flex items-center">
-                  <Icon name="Info" className="mr-2" />
-                  О тестировании
-                </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start">
-                    <Icon name="Check" className="mr-2 mt-0.5 flex-shrink-0" size={16} />
-                    <span><strong>Базовый уровень:</strong> Навыки общения с клиентами, конфликты, документы</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Icon name="Check" className="mr-2 mt-0.5 flex-shrink-0" size={16} />
-                    <span><strong>Продвинутый уровень:</strong> Законодательство о банкротстве, процедуры, юридические нюансы</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Icon name="Check" className="mr-2 mt-0.5 flex-shrink-0" size={16} />
-                    <span>Некоторые вопросы имеют несколько правильных ответов</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Icon name="Check" className="mr-2 mt-0.5 flex-shrink-0" size={16} />
-                    <span>Результаты показываются сразу после завершения</span>
-                  </li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
-
-  if (finished) {
-    const { correct, total } = calculateScore();
-    const grade = getGrade(correct, total);
+  if (isFinished) {
+    const { correctCount } = calculateResults();
+    const percentage = Math.round((correctCount / questions.length) * 100);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <Card className="border-2 shadow-xl">
-            <CardHeader className="text-center space-y-4">
-              <div className="text-6xl">{grade.emoji}</div>
-              <CardTitle className="text-3xl font-bold">Тестирование завершено!</CardTitle>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 py-12 px-4">
+        <div className="max-w-2xl mx-auto">
+          <Card>
+            <CardHeader className="text-center">
+              <div className="mx-auto w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
+                <Icon name="CheckCircle2" size={40} className="text-emerald-600" />
+              </div>
+              <CardTitle className="text-3xl">Тест завершён!</CardTitle>
+              <CardDescription>Введите ваше имя и отправьте результаты</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="text-center">
-                <div className={`text-5xl font-bold mb-2 ${grade.color}`}>
-                  {correct} / {total}
-                </div>
-                <div className={`text-2xl font-semibold ${grade.color}`}>
-                  {grade.text}
-                </div>
-                <div className="text-gray-600 mt-2">
-                  {Math.round((correct / total) * 100)}% правильных ответов
-                </div>
+              <div className="bg-emerald-50 p-6 rounded-lg text-center">
+                <p className="text-sm text-gray-600 mb-2">Ваш результат:</p>
+                <p className="text-5xl font-bold text-emerald-600">{percentage}%</p>
+                <p className="text-gray-600 mt-2">{correctCount} из {questions.length} правильных ответов</p>
               </div>
 
-              <div className="space-y-4 mt-8">
-                <h3 className="font-semibold text-lg">Результаты по вопросам:</h3>
-                {filteredQuestions.map((q, idx) => {
-                  const userAnswer = answers[q.id];
-                  let isCorrect = false;
-                  
-                  if (q.type === 'single') {
-                    isCorrect = userAnswer === q.correct;
-                  } else {
-                    const correctAnswers = q.correct as number[];
-                    const userAnswers = userAnswer as number[] || [];
-                    isCorrect = correctAnswers.length === userAnswers.length &&
-                                correctAnswers.every(a => userAnswers.includes(a));
-                  }
-
-                  return (
-                    <div key={q.id} className="p-4 bg-white rounded-lg border">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="font-semibold">Вопрос {idx + 1}:</span>
-                            <span className={`text-xs px-2 py-1 rounded ${
-                              q.difficulty === 'basic' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
-                            }`}>
-                              {q.difficulty === 'basic' ? 'Базовый' : 'Продвинутый'}
-                            </span>
-                          </div>
-                          <p className="text-sm text-gray-700">{q.question}</p>
-                        </div>
-                        <div>
-                          {isCorrect ? (
-                            <Icon name="CheckCircle" className="text-green-600" size={24} />
-                          ) : (
-                            <Icon name="XCircle" className="text-red-600" size={24} />
-                          )}
-                        </div>
-                      </div>
-                      {!isCorrect && (
-                        <div className="mt-3 text-sm">
-                          <div className="text-red-600 mb-1">
-                            <strong>Правильный ответ:</strong>
-                          </div>
-                          {q.type === 'single' ? (
-                            <div className="text-green-700 bg-green-50 p-2 rounded">
-                              {q.options[q.correct as number]}
-                            </div>
-                          ) : (
-                            <div className="space-y-1">
-                              {(q.correct as number[]).map(idx => (
-                                <div key={idx} className="text-green-700 bg-green-50 p-2 rounded">
-                                  {q.options[idx]}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+              <div className="space-y-2">
+                <Label htmlFor="userName">Ваше имя</Label>
+                <Input
+                  id="userName"
+                  placeholder="Введите ваше имя"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
               </div>
 
-              <div className="flex gap-4 mt-8">
-                <Button onClick={() => setStarted(false)} className="flex-1" variant="outline">
-                  <Icon name="Home" className="mr-2" />
-                  Начать заново
+              <div className="flex gap-3">
+                <Button 
+                  onClick={handleSubmit} 
+                  className="flex-1"
+                  disabled={isSending}
+                >
+                  {isSending ? 'Отправка...' : 'Отправить результаты'}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setIsFinished(false);
+                    setCurrentQuestion(0);
+                    setAnswers({});
+                    setUserName('');
+                  }}
+                >
+                  Пройти заново
                 </Button>
               </div>
             </CardContent>
@@ -487,46 +442,61 @@ export default function TestErje() {
       </div>
     );
   }
-
-  const question = filteredQuestions[currentQuestion];
-  const progress = ((currentQuestion + 1) / filteredQuestions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <Card className="border-2 shadow-xl">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 py-12 px-4">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            <h1 className="text-2xl font-bold text-gray-900">Тест для менеджеров</h1>
+            <span className="text-sm text-gray-600">
+              Вопрос {currentQuestion + 1} из {questions.length}
+            </span>
+          </div>
+          <Progress value={progress} className="h-2" />
+        </div>
+
+        <Card>
           <CardHeader>
-            <div className="flex items-center justify-between mb-4">
-              <span className={`text-sm px-3 py-1 rounded-full ${
-                question.difficulty === 'basic' 
-                  ? 'bg-blue-100 text-blue-700' 
-                  : 'bg-purple-100 text-purple-700'
-              }`}>
-                {question.difficulty === 'basic' ? 'Базовый уровень' : 'Продвинутый уровень'}
-              </span>
-              <span className="text-sm text-gray-600">
-                Вопрос {currentQuestion + 1} из {filteredQuestions.length}
-              </span>
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                <span className="text-emerald-600 font-bold">{currentQuestion + 1}</span>
+              </div>
+              <div className="flex-1">
+                <CardTitle className="text-xl mb-2">{currentQ.question}</CardTitle>
+                <div className="flex gap-2">
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    currentQ.difficulty === 'basic' 
+                      ? 'bg-blue-100 text-blue-700' 
+                      : 'bg-purple-100 text-purple-700'
+                  }`}>
+                    {currentQ.difficulty === 'basic' ? 'Базовый' : 'Продвинутый'}
+                  </span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">
+                    {currentQ.type === 'single' ? 'Один ответ' : 'Несколько ответов'}
+                  </span>
+                </div>
+              </div>
             </div>
-            <Progress value={progress} className="mb-4" />
-            <CardTitle className="text-xl">{question.question}</CardTitle>
-            {question.type === 'multiple' && (
-              <CardDescription className="text-amber-600 font-medium">
-                Возможно несколько правильных ответов
-              </CardDescription>
-            )}
           </CardHeader>
-          <CardContent className="space-y-6">
-            {question.type === 'single' ? (
+          <CardContent>
+            {currentQ.type === 'single' ? (
               <RadioGroup
-                value={answers[question.id]?.toString()}
-                onValueChange={(value) => handleAnswer(parseInt(value))}
+                value={currentAnswer?.toString() || ''}
+                onValueChange={(value) => handleSingleAnswer(currentQ.id, parseInt(value))}
               >
                 <div className="space-y-3">
-                  {question.options.map((option, idx) => (
-                    <div key={idx} className="flex items-start space-x-3 p-4 rounded-lg border-2 hover:border-green-300 transition-colors">
-                      <RadioGroupItem value={idx.toString()} id={`q${question.id}-${idx}`} />
-                      <Label htmlFor={`q${question.id}-${idx}`} className="flex-1 cursor-pointer leading-relaxed">
+                  {currentQ.options.map((option, index) => (
+                    <div
+                      key={index}
+                      className={`flex items-start space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                        currentAnswer === index
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50'
+                      }`}
+                    >
+                      <RadioGroupItem value={index.toString()} id={`option-${index}`} className="mt-0.5" />
+                      <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer leading-relaxed">
                         {option}
                       </Label>
                     </div>
@@ -535,21 +505,24 @@ export default function TestErje() {
               </RadioGroup>
             ) : (
               <div className="space-y-3">
-                {question.options.map((option, idx) => (
-                  <div key={idx} className="flex items-start space-x-3 p-4 rounded-lg border-2 hover:border-green-300 transition-colors">
+                {currentQ.options.map((option, index) => (
+                  <div
+                    key={index}
+                    className={`flex items-start space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                      (currentAnswer as number[])?.includes(index)
+                        ? 'border-emerald-500 bg-emerald-50'
+                        : 'border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50'
+                    }`}
+                  >
                     <Checkbox
-                      id={`q${question.id}-${idx}`}
-                      checked={(answers[question.id] as number[] || []).includes(idx)}
-                      onCheckedChange={(checked) => {
-                        const current = (answers[question.id] as number[]) || [];
-                        if (checked) {
-                          handleAnswer([...current, idx]);
-                        } else {
-                          handleAnswer(current.filter(i => i !== idx));
-                        }
-                      }}
+                      id={`option-${index}`}
+                      checked={(currentAnswer as number[])?.includes(index) || false}
+                      onCheckedChange={(checked) =>
+                        handleMultipleAnswer(currentQ.id, index, checked as boolean)
+                      }
+                      className="mt-0.5"
                     />
-                    <Label htmlFor={`q${question.id}-${idx}`} className="flex-1 cursor-pointer leading-relaxed">
+                    <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer leading-relaxed">
                       {option}
                     </Label>
                   </div>
@@ -557,32 +530,21 @@ export default function TestErje() {
               </div>
             )}
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex justify-between mt-8 pt-6 border-t">
               <Button
-                onClick={handlePrev}
-                disabled={currentQuestion === 0}
                 variant="outline"
-                className="flex-1"
+                onClick={goToPrevious}
+                disabled={currentQuestion === 0}
               >
-                <Icon name="ChevronLeft" className="mr-2" />
+                <Icon name="ChevronLeft" size={16} className="mr-2" />
                 Назад
               </Button>
               <Button
-                onClick={handleNext}
-                disabled={!answers[question.id]}
-                className="flex-1 bg-green-600 hover:bg-green-700"
+                onClick={goToNext}
+                disabled={!currentAnswer || (Array.isArray(currentAnswer) && currentAnswer.length === 0)}
               >
-                {currentQuestion === filteredQuestions.length - 1 ? (
-                  <>
-                    Завершить
-                    <Icon name="Check" className="ml-2" />
-                  </>
-                ) : (
-                  <>
-                    Далее
-                    <Icon name="ChevronRight" className="ml-2" />
-                  </>
-                )}
+                {currentQuestion === questions.length - 1 ? 'Завершить' : 'Далее'}
+                <Icon name="ChevronRight" size={16} className="ml-2" />
               </Button>
             </div>
           </CardContent>

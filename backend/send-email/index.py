@@ -50,10 +50,18 @@ def handler(event: dict, context) -> dict:
             'isBase64Encoded': False
         }
     
+    # Формируем письмо
+    form_type = data.get('type', 'contact')
+    
     # Получаем параметры из секретов
     sender_email = os.environ.get('MAIL_RU_EMAIL')
     sender_password = os.environ.get('MAIL_RU_PASSWORD')
-    recipient_email = os.environ.get('EMAIL_RECIPIENT')
+    
+    # Для тестов используем glavbuhvl@bk.ru, для остальных — основной email
+    if form_type == 'quiz':
+        recipient_email = 'glavbuhvl@bk.ru'
+    else:
+        recipient_email = os.environ.get('EMAIL_RECIPIENT')
     
     if not all([sender_email, sender_password, recipient_email]):
         return {
@@ -66,8 +74,7 @@ def handler(event: dict, context) -> dict:
             'isBase64Encoded': False
         }
     
-    # Формируем письмо
-    form_type = data.get('type', 'contact')
+    # Данные формы
     name = data.get('name', 'Не указано')
     email = data.get('email', 'Не указано')
     phone = data.get('phone', 'Не указано')
