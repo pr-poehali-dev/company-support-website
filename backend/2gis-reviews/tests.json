@@ -1,0 +1,11 @@
+{
+  "tests": [
+    {
+      "name": "Get 2GIS reviews",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "bodyMatcher": "none"
+    }
+  ]
+}

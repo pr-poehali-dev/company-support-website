@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import Quiz from '@/components/Quiz';
+import ReviewsCarousel from '@/components/ReviewsCarousel';
 
 export default function Index() {
   const [formData, setFormData] = useState({
@@ -670,27 +671,10 @@ export default function Index() {
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-heading font-bold text-secondary mb-3 md:mb-4">Отзывы клиентов</h2>
             <p className="text-lg text-muted-foreground">
-              Что говорят о нас наши партнеры
+              Отзывы с 2GIS — реальные впечатления наших клиентов
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow border-t-4 border-t-primary">
-                <CardHeader>
-                  <div className="flex items-center gap-1 mb-2">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" size={18} className="text-primary fill-primary" />
-                    ))}
-                  </div>
-                  <CardTitle className="text-xl font-heading">{testimonial.name}</CardTitle>
-                  <CardDescription>{testimonial.company}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-foreground/80 leading-relaxed">{testimonial.text}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <ReviewsCarousel />
         </div>
       </section>
 
