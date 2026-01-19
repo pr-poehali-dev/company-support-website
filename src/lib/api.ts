@@ -22,6 +22,13 @@ export async function sendContactForm(data: ContactFormData): Promise<{ success:
       body: JSON.stringify(data),
     });
 
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('Server returned non-JSON response:', text.substring(0, 200));
+      throw new Error('PHP-файл send-email.php не найден на хостинге. Загрузите файл из папки public/ на сервер.');
+    }
+
     const result = await response.json();
 
     if (!response.ok) {
